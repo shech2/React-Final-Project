@@ -36,7 +36,7 @@ export default function ResetPassword() {
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="email" required ref={emailRef} />
                             </Form.Group>
-                            <Button className="w-100" type="submit">Reset Password</Button>
+                            <Button className="w-100 mt-3" type="submit">Reset Password</Button>
                         </Form>
                         <div className="w-100 text-center mt-3">
                             <Link to="/login">Login</Link>
