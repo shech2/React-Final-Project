@@ -18,9 +18,7 @@ function App() {
           <Link to="/signup" style={{ padding: '5px' }}><button>Sign Up</button></Link>
           <Link to="/profile" style={{ padding: '5px' }}><button>Profile</button></Link>
         </nav>
-        <div style={{
-          display: 'flex', width: 700, padding: 30
-        }}>
+        <div>
           <Routes>
             <Route exact path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

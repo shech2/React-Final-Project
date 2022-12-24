@@ -1,0 +1,12 @@
+.card {
+    min-width: 30%;
+    min-height: 50%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px #ccc;
+    margin: 200px auto;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #fff;
+}

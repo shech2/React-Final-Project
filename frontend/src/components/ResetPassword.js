@@ -2,7 +2,7 @@ import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
-import { Form, Button, Card, Alert } from 'react-bootstrap'
+import { Form, Button, Card, Alert, Container } from 'react-bootstrap'
 
 export default function ResetPassword() {
     const { resetPassword } = useAuth();
@@ -25,26 +25,28 @@ export default function ResetPassword() {
 
     return (
         <div>
-            <Card>
-                <Card.Body>
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    {message && <Alert variant="success">{message}</Alert>}
-                    <h2 className="text-center mb-4">Reset Password</h2>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" required ref={emailRef} />
-                        </Form.Group>
-                        <Button className="w-100" type="submit">Reset Password</Button>
-                    </Form>
-                    <div className="w-100 text-center mt-3">
-                        <Link to="/login">Login</Link>
+            <Container>
+                <Card className='card'>
+                    <Card.Body>
+                        {error && <Alert variant="danger">{error}</Alert>}
+                        {message && <Alert variant="success">{message}</Alert>}
+                        <h2 className="text-center mb-4">Reset Password</h2>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group id="email">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email" required ref={emailRef} />
+                            </Form.Group>
+                            <Button className="w-100" type="submit">Reset Password</Button>
+                        </Form>
+                        <div className="w-100 text-center mt-3">
+                            <Link to="/login">Login</Link>
+                        </div>
+                    </Card.Body>
+                    <div className="w-100 text-center mt-2">
+                        Need an account? <Link to="/signup">Sign Up</Link>
                     </div>
-                </Card.Body>
-                <div className="w-100 text-center mt-2">
-                    Need an account? <Link to="/signup">Sign Up</Link>
-                </div>
-            </Card>
+                </Card>
+            </Container>
         </div>
     )
 }
