@@ -38,7 +38,7 @@ export default function ResetPassword() {
                         <Button className="w-100 mt-3" type="submit">Reset Password</Button>
                     </Form>
                     <div className="w-100 text-center mt-3">
-                        <Link to="/login">Login</Link>
+                        <Link to="/login">Remember your password ? try to Login</Link>
                     </div>
                 </Card.Body>
                 <div className="w-100 text-center mt-2">

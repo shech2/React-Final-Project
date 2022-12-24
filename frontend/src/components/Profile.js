@@ -15,7 +15,7 @@ export default function Profile() {
         try {
             await updateUser(newEmailRef.current.value?.trim()).then(() => {
                 alert("Profile updated successfully please login again to see changes");
-                navigate('/');
+                navigate('/login');
             });
         } catch (error) {
             setError(error.message);
@@ -26,7 +26,7 @@ export default function Profile() {
         e.preventDefault();
         await logout().then(() => {
             alert(currentUser && currentUser.email ? currentUser.email + "  has logged out" : "No user is logged in");
-            navigate('/');
+            navigate('/login');
         }
         ).catch((error) => {
             setError(error.message);
