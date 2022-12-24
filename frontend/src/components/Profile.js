@@ -11,6 +11,7 @@ export default function Profile() {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+        setError('');
         try {
             await updateUser(newEmailRef.current.value?.trim()).then(() => {
                 alert("Profile updated successfully please login again to see changes");

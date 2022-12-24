@@ -12,6 +12,8 @@ export default function ResetPassword() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setError('');
+        setMessage('');
 
         try {
             await resetPassword(emailRef.current.value);

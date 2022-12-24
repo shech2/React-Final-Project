@@ -13,6 +13,7 @@ export default function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setError('');
         try {
             await login(emailRef.current.value, passwordRef.current.value).then((user) => {
                 alert(user._tokenResponse && user._tokenResponse.email + "  has logged in");
