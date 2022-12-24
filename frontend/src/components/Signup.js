@@ -19,11 +19,16 @@ const Signup = () => {
         setError('');
         if (passwordRef.current.value !== confirmPasswordRef.current.value) {
             setError("Passwords do not match");
+            return;
         }
-        await signup(emailRef.current.value, passwordRef.current.value).catch((error) => {
+        try {
+            await signup(emailRef.current.value, passwordRef.current.value).then((res) => {
+                navigate('/profile');
+            });
+        } catch (error) {
             setError(error.message);
-        });
-        navigate('/profile');
+        }
+
     }
 
 
