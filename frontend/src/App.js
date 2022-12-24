@@ -5,7 +5,7 @@ import Profile from './components/Profile';
 import ResetPassword from './components/ResetPassword';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Alert } from 'react-bootstrap';
+import { Alert, Container } from 'react-bootstrap';
 import { useAuth } from '../src/contexts/AuthContext';
 
 function App() {
@@ -18,15 +18,17 @@ function App() {
           <Link to="/signup" style={{ padding: '5px' }}><button>Sign Up</button></Link>
           <Link to="/profile" style={{ padding: '5px' }}><button>Profile</button></Link>
         </nav>
-        <div>
-          <Routes>
-            <Route exact path="/" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/forgot-password" element={<ResetPassword />} />
-            {currentUser ? <Route path="/profile" element={<Profile />} /> : <Route path="/profile" element={<Alert variant='danger'><h1>Please login First</h1></Alert>} />}
-            <Route path="*" element={<Alert variant='danger'><h1>404 Not Found</h1></Alert>} />
-          </Routes>
-        </div>
+        <Container style={{ minHeight: '20vh' }} >
+          <div style={{ maxWidth: "400px" }}>
+            <Routes>
+              <Route exact path="/" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/forgot-password" element={<ResetPassword />} />
+              {currentUser ? <Route path="/profile" element={<Profile />} /> : <Route path="/profile" element={<Alert variant='danger'><h1>Please login First</h1></Alert>} />}
+              <Route path="*" element={<Alert variant='danger'><h1>404 Not Found</h1></Alert>} />
+            </Routes>
+          </div>
+        </Container>
       </Router>
     </>
   );
