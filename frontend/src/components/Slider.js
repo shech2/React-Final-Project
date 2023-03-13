@@ -1,12 +1,14 @@
+import { useState } from 'react';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
+import { sliderItems } from '../data';
 
 const Container = styled('div')(({ theme }) => ({
     width: '100%',
     height: '100vh',
     display: 'flex',
-    background: 'coral',
     position: 'relative',
+    overflow: 'hidden',
 }));
 
 const Arrow = styled('div')(({ theme, direction }) => ({
@@ -23,15 +25,87 @@ const Arrow = styled('div')(({ theme, direction }) => ({
     left: direction === "left" ? '10px' : 'auto',
     right: direction === "right" ? '10px' : 'auto',
     margin: 'auto',
+    cursor: 'pointer',
+    opacity: '0.5',
+    zIndex: '2',
 }));
 
+const Wrapper = styled('div')(({ slideIndex }) => ({
+    height: '100%',
+    display: 'flex',
+    transform: `translateX(-${slideIndex * 100}vw)`,
+    transition: 'all 1.5s ease',
+}));
+
+const Slide = styled('div')({
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#f5fafd',
+});
+
+const ImgContainer = styled('div')({
+    height: '100%',
+    flex: 1,
+});
+
+const Image = styled('img')({
+    height: '80%',
+});
+
+const InfoContainer = styled('div')({
+    flex: 1,
+    padding: '50px',
+});
+
+const Title = styled('h1')({
+    fontSize: '70px',
+});
+
+const Desc = styled('p')({
+    margin: '50px 0px',
+    fontSize: '20px',
+    letterSpacing: '3px',
+});
+
+const Button = styled('button')({
+    padding: '10px',
+    fontSize: '20px',
+    backgroundColor: 'transparent',
+});
+
 const Slider = () => {
+    const [slideIndex, setSlideIndex] = useState(0);
+
+    const handleClick = (direction) => {
+        if (direction === 'left') {
+            setSlideIndex((prev) => (prev > 0 ? prev - 1 : 2));
+        } else {
+            setSlideIndex((prev) => (prev < 2 ? prev + 1 : 0));
+        }
+    };
+
     return (
         <Container>
-            <Arrow direction="left">
+            <Arrow direction="left" onClick={() => handleClick('left')}>
                 <ArrowLeft />
             </Arrow>
-            <Arrow direction="right">
+            <Wrapper slideIndex={slideIndex}>
+                {sliderItems.map((item) => (
+                    <Slide bg={item.bg} key={item.id}>
+                        <ImgContainer>
+                            <Image src={item.img} />
+                        </ImgContainer>
+                        <InfoContainer>
+                            <Title variant="h1">{item.title}</Title>
+                            <Desc>{item.desc}</Desc>
+                            <Button variant="contained">SHOW NOW</Button>
+                        </InfoContainer>
+                    </Slide>
+                ))}
+            </Wrapper>
+            <Arrow direction="right" onClick={() => handleClick('right')}>
                 <ArrowRight />
             </Arrow>
         </Container>
