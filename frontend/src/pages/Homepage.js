@@ -1,9 +1,11 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
+
 
 export default function Homepage() {
     return (
         <div>
-            <h1>Welcome To Semion ! </h1>
+            <Navbar />
         </div>
     )
 }
