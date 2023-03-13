@@ -29,5 +29,5 @@ app.use("/api/orders", orderRoute);
 app.use("/api/checkout", stripeRoute);
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log("Backend server is running!\n" + "on port: " + process.env.PORT || 3000 + "\n");
+    console.log("Backend server is running!\n" + "on port: " + process.env.PORT || 5000 + "\n");
 });
