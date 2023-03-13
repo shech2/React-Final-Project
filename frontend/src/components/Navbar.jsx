@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Search} from '@material-ui/icons/Search';
+import {Badge, Search} from '@mui/icons-material';
 
 const Constainer = styled.div`
     height: 60px;
