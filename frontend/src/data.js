@@ -8,7 +8,7 @@ export const sliderItems = [
     },
     {
         id: 2,
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc_VFLiQRLmFjavLoU7vcxfKC9mzYRAlfzKQHeRt-D8zLQanH9SPT_c0rm2q9erR-21n0&usqp=CAU",
+        img: "https://media.istockphoto.com/id/505865064/photo/high-books-stack-open-book-isolated-white-background-colorful-covers.jpg?s=612x612&w=0&k=20&c=F9v1__67BSuQNPtL__coWdjDaSolvLNUEGdXuUzzqHo=",
         title: "Summer Sale",
         desc: "Don't miss out on the Summer 2023 sale!",
         bg: "fcf1ed",
@@ -19,5 +19,23 @@ export const sliderItems = [
         title: "Holiday Sale",
         desc: "Don't miss out on the Holiday 2023 sale!",
         bg: "fbf0f4",
+    },
+];
+
+export const categories = [
+    {
+        id: 1,
+        img: "https://www.pngitem.com/pimgs/m/256-2562013_transparent-abject-clipart-rich-dad-poor-dad-hd.png",
+        title: "",
+    },
+    {
+        id: 2,
+        img: "https://i.ebayimg.com/images/g/MR4AAOSwMyRji~7~/s-l1600.jpg",
+        title: "",
+    },
+    {
+        id: 3,
+        img: "https://www.adorebooks.in/wp-content/uploads/2022/03/Untitled-design-52-1.jpg",
+        title: "",
     },
 ];
