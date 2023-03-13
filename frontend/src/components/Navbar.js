@@ -1,86 +1,92 @@
 import React from 'react';
-import {styled} from '@mui/system';
-import {Badge, Search} from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
+import { Search, ShoppingCartOutlined } from '@mui/icons-material';
+import { Badge } from '@mui/material';
 
-const Constainer = styled(`div`)({
-    height: `60px`,
-    backgroundcolor: `black`,
+const Container = styled('div')({
+    height: '60px',
 });
 
-const Wrapper = styled(`div`)({
-    padding: `10px 20px`,
-    display: `flex`,
-    alignitems: `center`,
-    justifycontent: `space-between`, 
- });
-
-const Left = styled(`div`)({
-    flex: `1`,
- });
-
-const Language = styled(`span`)({
-    fontsize: `14px`,
-    cursor: `pointer`,
-    display: `flex`,
-    alignitems: `center`,
- });
-
-const SearchContainer = styled(`div`)({
-    border: `0.5px solid lightgray`,
-    display: `flex`,
-    alignitems: `center`,
-    marginleft: `25px`,
-    padding: `5px`,
- });
-
-const Input = styled(`input`)({
-    border: `none`,
-
+const Wrapper = styled('div')({
+    padding: '10px 20px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
 });
 
-const Logo = styled(`h1`)({
-    fontweight: `bold`,
+const Left = styled('div')({
+    flex: 1,
+    display: 'flex',
+    alignitems: 'center',
 });
 
-const Right = styled(`div`)({
-    flex: `1`,
+const Language = styled('span')({
+    fontSize: '18px',
+    cursor: 'pointer',
+    marginTop: '5px',
 });
 
-const Center = styled(`div`)({
-    flex: `1`,
-    textalign: `center`,
+const SearchContainer = styled('div')({
+    border: '0.5px solid lightgray',
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: '25px',
+    padding: '5px',
 });
 
-const MenuItem = styled(`div`)({
-    fontsize: `14px`,
-    cursor: `pointer`,
+const Input = styled('input')({
+    border: 'none',
+});
+
+const Logo = styled('h1')({
+    fontWeight: 'bold',
+});
+
+const Right = styled('div')({
+    flex: 1,
+    display: 'flex',
+    alignitems: 'center',
+    justifyContent: 'flex-end'
+});
+
+const Center = styled('div')({
+    flex: 1,
+    textAlign: 'center',
+});
+
+const MenuItem = styled('div')({
+    fontSize: '18px',
+    cursor: 'pointer',
+    marginLeft: '30px',
+    marginRight: '20px',
 });
 
 const Navbar = () => {
-    return(
-        <Constainer>
+    return (
+        <Container>
             <Wrapper>
-            <Left>
-                <Language>EN</Language>
-                <SearchContainer>
-                    <Input/>
-                    <Search/>
-                </SearchContainer>
-            </Left>
-            <Center><Logo>YSM-Sneakers.</Logo></Center>
-            <Right>
-                <MenuItem>REGISTER</MenuItem>
-                <MenuItem>SIGN IN</MenuItem>
-                <MenuItem>
-                    <Badge badgeContent={4} color="primary">
-                       
-
-                    </Badge>
-                </MenuItem>
-            </Right>
+                <Left>
+                    <Language>EN</Language>
+                    <SearchContainer>
+                        <Input placeholder="Search" />
+                        <Search style={{ color: "gray", fontSize: 16 }} />
+                    </SearchContainer>
+                </Left>
+                <Center>
+                    <Logo>Books</Logo>
+                </Center>
+                <Right>
+                    <MenuItem>REGISTER</MenuItem>
+                    <MenuItem style={{ marginLeft: '20px' }}>SIGN IN</MenuItem>
+                    <MenuItem>
+                        <Badge badgeContent={4} color="primary">
+                            <ShoppingCartOutlined style={{ fontSize: '30px' }} />
+                        </Badge>
+                    </MenuItem>
+                </Right>
             </Wrapper>
-        </Constainer>
-    )
-}
+        </Container>
+    );
+};
 
 export default Navbar;
