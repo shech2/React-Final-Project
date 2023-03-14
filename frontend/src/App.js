@@ -9,6 +9,6 @@ import Cart from './pages/Cart';
 
 
 const App = () => {
-  return <Homepage />;
+  return <Login />;
 };
 export default App;
