@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-import { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } from "./verifyToken.js";
+import { verifyTokenAndAuthorization, verifyTokenAndAdmin } from "./verifyToken.js";
 import express from 'express'
 const router = express.Router();
 
