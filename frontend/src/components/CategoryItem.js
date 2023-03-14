@@ -13,7 +13,7 @@ const Image = styled('img')(({ theme }) => ({
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    ...mobile({ height: '20vh' }),
+    // ...mobile({ height: '20vh' }),
 }));
 
 const Info = styled('div')(({ theme }) => ({
