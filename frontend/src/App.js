@@ -8,10 +8,7 @@ import Register from './pages/Register';
 import Cart from './pages/Cart';
 
 
-
 const App = () => {
   return <Homepage />;
 };
-
-
 export default App;
