@@ -1,5 +1,6 @@
 import { Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import {mobile} from '../responsive';
 
 const Container = styled('div')(({ theme }) => ({
     flex: 1,
@@ -12,6 +13,7 @@ const Image = styled('img')(({ theme }) => ({
     width: '100%',
     height: '100%',
     objectFit: 'cover',
+    ...mobile({ height: '20vh' }),
 }));
 
 const Info = styled('div')(({ theme }) => ({

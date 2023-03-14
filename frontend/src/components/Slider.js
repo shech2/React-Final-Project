@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { sliderItems } from '../data';
+import { mobile } from '../responsive';
 
 const Container = styled('div')(({ theme }) => ({
     width: '100%',
@@ -9,6 +10,7 @@ const Container = styled('div')(({ theme }) => ({
     display: 'flex',
     position: 'relative',
     overflow: 'hidden',
+    ...mobile({ display: 'none' }),
 }));
 
 const Arrow = styled('div')(({ theme, direction }) => ({
