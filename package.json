@@ -2,5 +2,8 @@
   "dependencies": {
     "react-redux": "^8.0.5",
     "redux-api-call": "^1.2.6"
+  },
+  "devDependencies": {
+    "prettier": "2.8.4"
   }
 }

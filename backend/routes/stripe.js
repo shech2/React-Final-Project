@@ -3,6 +3,7 @@ import stripe from "stripe";
 const router = express.Router();
 stripe(process.env.STRIPE_KEY);
 
+
 router.post("/payment", (req, res) => {
     stripe.charges.create(
         {
