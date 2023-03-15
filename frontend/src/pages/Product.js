@@ -6,6 +6,12 @@ import Newsletter from '../components/Newsletter';
 import { Box, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { useLocation } from 'react-router';
+import {publicRequest} from '../requestMethods';
+import{useState} from 'react';
+import { useEffect } from 'react';
+import { addProduct } from '../redux/cartRedux';
+import { useDispatch } from 'react-redux';
 
 const Container = styled(Box)({
 
@@ -92,28 +98,55 @@ const Button = styled(Box)({
 
 
 const Product = () => {
+    const location = useLocation();
+    const id = location.pathname.split("/")[2];
+    const [product, setProduct] = useState({});
+    const[quantity, setQuantity] = useState(1);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const getProduct = async () => {
+            try {
+                const res = await publicRequest.get("/products/find/" + id);
+                setProduct(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getProduct();
+    }, [id]);
+
+    const handleQuantity = (type) => {
+        if (type === "dec") {
+            quantity > 1 && setQuantity(quantity - 1);
+        } else {
+            setQuantity(quantity + 1);
+        }
+    };
+
+    const handleClick = async () => {
+        dispatch(addProduct({...product,quantity}));
+    };
+
     return (
         <Container>
             <Navbar />
             <Announcement />
             <Wrapper>
                 <ImgContainer>
-                    <Image src="https://www.pngitem.com/pimgs/m/256-2562013_transparent-abject-clipart-rich-dad-poor-dad-hd.png" />
+                    <Image src = {product.img} />
                 </ImgContainer>
                 <InfoContainer>
-                    <Title variant="h1">Rich dad poor dad</Title>
-                    <Desc>
-                        25 years have passed since the publication of Robert Kiyosaki's book Rich Dad, Poor Dad, which was translated into dozens of languages, changed the way tens of millions of people around the world think about money and investments, and became the number one guide of all time for personal financial management.
-                        This is Robert's story about the two fathers who raised him - his real father, the poor father, and his best friend's father, the rich father - and the ways in which each of them shaped his way of thinking about money and investments. The book shatters the myth that one must enjoy a high income to be rich, and explains the difference between working for money and letting money work for us.
-                    </Desc>
-                    <Price>$ 35</Price>
+                    <Title variant="h1">{product.title}</Title>
+                    <Desc>{product.desc}</Desc>
+                    <Price>{product.price}$</Price>
                     <AddContainer>
                         <AmountContainer>
-                            <RemoveIcon />
-                            <Amount>1</Amount>
-                            <AddIcon />
+                            <RemoveIcon onClick = {() => handleQuantity("dec")} />
+                            <Amount>{quantity}</Amount>
+                            <AddIcon onClick = {() => handleQuantity("inc")}/>
                         </AmountContainer>
-                        <Button>ADD TO CART</Button>
+                        <Button onClick = {handleClick} >ADD TO CART</Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>

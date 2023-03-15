@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { styled } from '@mui/material/styles';
 import { Add, Remove } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import StripeCheckout from "react-stripe-checkout";
+import { useState } from "react";
+import { userRequest } from "../requestMethods";
+import { useNavigate } from "react-router";
+
+const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled('div')``;
 
@@ -86,15 +93,6 @@ const ProductName = styled('span')(({ theme }) => ({}));
 
 const ProductId = styled('span')(({ theme }) => ({}));
 
-const ProductColor = styled('div')(({ theme, color }) => ({
-  width: 20,
-  height: 20,
-  borderRadius: '50%',
-  backgroundColor: color,
-}));
-
-const ProductSize = styled('span')(({ theme }) => ({}));
-
 const PriceDetail = styled('div')(({ theme }) => ({
   flex: 1,
   display: 'flex',
@@ -164,6 +162,30 @@ const Hr = styled('hr')({
   });
   
 const Cart = () => {
+  const cart = useSelector(state=>state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const history = useNavigate();
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  useEffect(() => {
+      const makeRequest = async () => {
+          try{ 
+            const res = await userRequest.post("/checkout/payment", {
+              tokenId: stripeToken.id,
+              amount: 500 ,
+            });
+            history("/success",{
+              state: { stripeData: res.data, products: cart },
+            });
+          }catch{}
+      };
+      stripeToken && makeRequest();
+      }, [stripeToken,cart.total,history]);
+
+
   return (
     <Container>
       <Navbar />
@@ -180,51 +202,34 @@ const Cart = () => {
         </Top>
         <Bottom>
             <Info>
-                <Product>
-                    <ProductDetail>
-                        <Image src="https://pbs.twimg.com/media/Ca29a8jXEAA7XRK?format=jpg&name=medium" />
-                        <Details>
-                            <ProductName><b>Product:</b> Harry Potter Book</ProductName>
-                            <ProductId><b>ID:</b> 123456</ProductId>
-                            <ProductColor color="gold"/>
-                            <ProductSize><b>Size:</b> 37.5</ProductSize>
-                        </Details>
-                    </ProductDetail>
-                    <PriceDetail>
-                        <ProductAmountContainer>
-                            <Add/>
-                            <ProductAmount>2</ProductAmount>
-                            <Remove/>
-                        </ProductAmountContainer>
-                        <ProductPrice>$30</ProductPrice>
-                    </PriceDetail>
-                </Product>
+                {cart.products.map(product => (
+                  <Product>
+                  <ProductDetail>
+                      <Image src={product.img} />
+                      <Details>
+                          <ProductName><b>Product:</b> {product.title}</ProductName>
+                          <ProductId><b>ID:</b>{product._id}</ProductId>
+                      </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                      <ProductAmountContainer>
+                          <Add/>
+                          <ProductAmount>{product.quantity}</ProductAmount>
+                          <Remove/>
+                      </ProductAmountContainer>
+                      <ProductPrice>
+                        {product.price * product.quantity}$
+                      </ProductPrice>
+                  </PriceDetail>
+              </Product>
+                ))}
                 <Hr/>
-                <Product>
-                    <ProductDetail>
-                    <Image src="https://pbs.twimg.com/media/Ca29a8jXEAA7XRK?format=jpg&name=medium" />
-                        <Details>
-                            <ProductName><b>Product:</b> Harry Potter Book</ProductName>
-                            <ProductId><b>ID:</b> 123456</ProductId>
-                            <ProductColor color="gold"/>
-                            <ProductSize><b>Size:</b> 37.5</ProductSize>
-                        </Details>
-                    </ProductDetail>
-                    <PriceDetail>
-                        <ProductAmountContainer>
-                            <Add/>
-                            <ProductAmount>2</ProductAmount>
-                            <Remove/>
-                        </ProductAmountContainer>
-                        <ProductPrice>$30</ProductPrice>
-                    </PriceDetail>
-                </Product>
             </Info>
             <Summary>
                 <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                 <SummaryItem>
                     <SummaryItemText>Subtotal</SummaryItemText>
-                    <SummaryItemPrice>$80</SummaryItemPrice>
+                    <SummaryItemPrice>{cart.total}$</SummaryItemPrice>
                 </SummaryItem>
                 <SummaryItem>
                     <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -236,9 +241,20 @@ const Cart = () => {
                 </SummaryItem>
                 <SummaryItem>
                     <SummaryItemText type="total">Total</SummaryItemText>
-                    <SummaryItemPrice>$80</SummaryItemPrice>
+                    <SummaryItemPrice>{cart.total}$</SummaryItemPrice>
                 </SummaryItem>
+                <StripeCheckout
+                name = "Books Store"
+                image = "https://images-platform.99static.com//o5_Q8pUagynJuidDta7JRMJ7_K8=/311x281:1652x1622/fit-in/590x590/99designs-contests-attachments/74/74026/attachment_74026482"
+                billingAddress
+                shippingAddress
+                description = {`Your total is ${cart.total}`}
+                amount = {100}
+                token = {onToken}
+                stripeKey = {KEY}
+                >
                 <Button>CHECKOUT NOW</Button>
+                </StripeCheckout>
             </Summary>
         </Bottom>
       </Wrapper>

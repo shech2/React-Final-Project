@@ -25,18 +25,21 @@ export const sliderItems = [
 export const categories = [
     {
         id: 1,
-        img: "https://www.pngitem.com/pimgs/m/256-2562013_transparent-abject-clipart-rich-dad-poor-dad-hd.png",
-        title: "",
+        img: "https://i.pinimg.com/564x/a2/5d/78/a25d787bc590da0db940ee7c948fadc4.jpg",
+        title: "NEW RELEASES",
+        cat:"new"
     },
     {
         id: 2,
-        img: "https://i.ebayimg.com/images/g/MR4AAOSwMyRji~7~/s-l1600.jpg",
-        title: "",
+        img: "https://i.pinimg.com/564x/10/2f/6e/102f6e23b4950bbaaddefbe38a177301.jpg",
+        title: "SIGNED EDITIONS",
+        cat:"signed"
     },
     {
         id: 3,
-        img: "https://www.adorebooks.in/wp-content/uploads/2022/03/Untitled-design-52-1.jpg",
-        title: "",
+        img: "https://i.pinimg.com/564x/33/c6/96/33c696c0a01c62e29e030ca45c7b87f0.jpg",
+        title: "BEST SELLERS",
+        cat:"best"
     },
 ];
 
