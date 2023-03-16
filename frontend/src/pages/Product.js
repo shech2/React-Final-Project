@@ -7,11 +7,12 @@ import { Box, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useLocation } from 'react-router';
-import {publicRequest} from '../requestMethods';
-import{useState} from 'react';
+import { publicRequest } from '../requestMethods';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
+import { useAuth } from '../contexts/AuthContext';
 
 const Container = styled(Box)({
 
@@ -101,8 +102,9 @@ const Product = () => {
     const location = useLocation();
     const id = location.pathname.split("/")[2];
     const [product, setProduct] = useState({});
-    const[quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
+    const { currentUser } = useAuth();
 
     useEffect(() => {
         const getProduct = async () => {
@@ -125,7 +127,11 @@ const Product = () => {
     };
 
     const handleClick = async () => {
-        dispatch(addProduct({...product,quantity}));
+        if (currentUser?.email)
+            dispatch(addProduct({ ...product, quantity }));
+        else {
+            alert("Please Login to add items to cart");
+        }
     };
 
     return (
@@ -134,7 +140,7 @@ const Product = () => {
             <Announcement />
             <Wrapper>
                 <ImgContainer>
-                    <Image src = {product.img} />
+                    <Image src={product.img} />
                 </ImgContainer>
                 <InfoContainer>
                     <Title variant="h1">{product.title}</Title>
@@ -142,11 +148,11 @@ const Product = () => {
                     <Price>{product.price}$</Price>
                     <AddContainer>
                         <AmountContainer>
-                            <RemoveIcon onClick = {() => handleQuantity("dec")} />
+                            <RemoveIcon onClick={() => handleQuantity("dec")} />
                             <Amount>{quantity}</Amount>
-                            <AddIcon onClick = {() => handleQuantity("inc")}/>
+                            <AddIcon onClick={() => handleQuantity("inc")} />
                         </AmountContainer>
-                        <Button onClick = {handleClick} >ADD TO CART</Button>
+                        <Button onClick={handleClick} >ADD TO CART</Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>
