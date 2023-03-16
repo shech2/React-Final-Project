@@ -94,14 +94,14 @@ const Navbar = () => {
                     </SearchContainer>
                 </Left>
                 <Center>
-                    <Logo>Books</Logo>
+                    <Logo onClick={() => navigate("/")}>Books</Logo>
                 </Center>
                 <Right>
                     {currentUser?.email ?
                         <MenuItem onClick={signOutHandler}>SIGN OUT</MenuItem>
                         :
                         <MenuItem onClick={() => navigate("/login")} style={{ marginLeft: '20px' }}>SIGN IN</MenuItem>}
-                    {currentUser?.email ? "" :
+                    {currentUser?.email ? <MenuItem>Welcome, {currentUser?.email}</MenuItem> :
                         <MenuItem onClick={() => navigate("/register")}>REGISTER</MenuItem>}
                     <Link to="/cart">
                         <MenuItem>
