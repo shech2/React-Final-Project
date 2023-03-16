@@ -199,7 +199,7 @@ const Cart = () => {
         <Top>
           <TopButton onClick={() => history("/")}>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag (2)</TopText>
+            <TopText>Shopping Bag ({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           <TopButton>CHECKOUT NOW</TopButton>
