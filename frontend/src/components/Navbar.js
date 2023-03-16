@@ -6,6 +6,7 @@ import { mobile } from '../responsive';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Container = styled('div')({
     height: '60px',
@@ -75,6 +76,13 @@ const MenuItem = styled('div')({
 const Navbar = () => {
     const quantity = useSelector(state => state.cart.quantity);
     const navigate = useNavigate();
+    const { logout, currentUser } = useAuth();
+
+    const signOutHandler = () => {
+        logout();
+        navigate("/");
+    };
+
     return (
         <Container>
             <Wrapper>
@@ -89,8 +97,12 @@ const Navbar = () => {
                     <Logo>Books</Logo>
                 </Center>
                 <Right>
-                    <MenuItem onClick={() => navigate("/register")}>REGISTER</MenuItem>
-                    <MenuItem onClick={() => navigate("/login")} style={{ marginLeft: '20px' }}>SIGN IN</MenuItem>
+                    {currentUser?.email ?
+                        <MenuItem onClick={signOutHandler}>SIGN OUT</MenuItem>
+                        :
+                        <MenuItem onClick={() => navigate("/login")} style={{ marginLeft: '20px' }}>SIGN IN</MenuItem>}
+                    {currentUser?.email ? "" :
+                        <MenuItem onClick={() => navigate("/register")}>REGISTER</MenuItem>}
                     <Link to="/cart">
                         <MenuItem>
                             <Badge badgeContent={quantity} color="primary">
