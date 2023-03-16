@@ -70,4 +70,6 @@ const getProducts = async (req, res) => {
     }
 };
 
+
+
 export { createProduct, updateProduct, deleteProduct, getProduct, getProducts };
