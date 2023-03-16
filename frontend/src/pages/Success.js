@@ -14,6 +14,7 @@ const Success = () => {
   const data = location.state.stripeData;
   const cart = location.state.products;
   const dispatch = useDispatch();
+  console.log(cart);
 
 
   const [orderId, setOrderId] = useState(null);
@@ -25,7 +26,7 @@ const Success = () => {
           userId: currentUser.uid,
           products: cart.products.map((item) => ({
             productId: item._id,
-            quantity: item._quantity,
+            quantity: item.quantity,
           })),
           amount: cart.total,
           address: data.billing_details.address,
