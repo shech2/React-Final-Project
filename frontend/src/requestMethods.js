@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5000/api';
-const TOKEN = "";
+const TOKEN = process.env.REACT_APP_STRIPE_SECRET;
 
 export const publicRequest = axios.create({
     baseURL: BASE_URL,
@@ -9,5 +9,5 @@ export const publicRequest = axios.create({
 
 export const userRequest = axios.create({
     baseURL: BASE_URL,
-    headers: { token: `Bearer ${TOKEN}` },
+    headers: { Authorization: `Bearer ${TOKEN}` },
 });
