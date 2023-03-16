@@ -23,7 +23,7 @@ const Signup = () => {
         }
         try {
             await signup(emailRef.current.value, passwordRef.current.value).then((res) => {
-                navigate('/profile');
+                navigate('/login');
             });
         } catch (error) {
             setError(error.message);
