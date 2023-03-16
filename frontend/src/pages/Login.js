@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 // import { mobile } from "../responsive";
 import { useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from 'react-router-dom';
 
 
 const Container = styled('div')({
@@ -75,6 +76,8 @@ const Login = () => {
   const [error, setError] = useState('')
   const emailRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
+
 
 
   const handleLogin = async (e) => {
@@ -84,6 +87,7 @@ const Login = () => {
       await login(emailRef.current.value, passwordRef.current.value).then((user) => {
         alert(user._tokenResponse && user._tokenResponse.email + "  has logged in");
         console.log(user._tokenResponse);
+        navigate('/');
       })
     } catch (error) {
       setError(error.message);

@@ -5,6 +5,7 @@ import { Badge } from '@mui/material';
 import { mobile } from '../responsive';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled('div')({
     height: '60px',
@@ -73,6 +74,7 @@ const MenuItem = styled('div')({
 
 const Navbar = () => {
     const quantity = useSelector(state => state.cart.quantity);
+    const navigate = useNavigate();
     return (
         <Container>
             <Wrapper>
@@ -87,14 +89,14 @@ const Navbar = () => {
                     <Logo>Books</Logo>
                 </Center>
                 <Right>
-                    <MenuItem>REGISTER</MenuItem>
-                    <MenuItem style={{ marginLeft: '20px' }}>SIGN IN</MenuItem>
-                    <Link to = "/cart" > 
-                    <MenuItem>
-                        <Badge badgeContent={quantity} color="primary">
-                            <ShoppingCartOutlined style={{ fontSize: '30px' }} />
-                        </Badge>
-                    </MenuItem>
+                    <MenuItem onClick={() => navigate("/register")}>REGISTER</MenuItem>
+                    <MenuItem onClick={() => navigate("/login")} style={{ marginLeft: '20px' }}>SIGN IN</MenuItem>
+                    <Link to="/cart">
+                        <MenuItem>
+                            <Badge badgeContent={quantity} color="primary">
+                                <ShoppingCartOutlined style={{ fontSize: '30px' }} />
+                            </Badge>
+                        </MenuItem>
                     </Link>
                 </Right>
             </Wrapper>
