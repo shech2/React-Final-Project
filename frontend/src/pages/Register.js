@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'
+import axios from 'axios'
 
 
 const Container = styled('div')({
@@ -76,6 +77,14 @@ const Register = () => {
     }
     try {
       await signup(emailRef.current.value, passwordRef.current.value).then((res) => {
+        axios.post('http://localhost:5000/api/users', {
+          email: emailRef.current.value,
+          isAdmin: false,
+        }).then((res) => {
+          console.log(res);
+        }).catch((err) => {
+          console.log(err);
+        });
         navigate('/');
       });
     } catch (error) {

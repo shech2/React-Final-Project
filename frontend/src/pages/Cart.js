@@ -182,7 +182,7 @@ const Cart = () => {
           amount: cart.total * 100,
         });
         history("/success", {
-          state: { stripeData: res.data, products: cart },
+          state: { stripeData: res.data, products: cart }
         });
       } catch { }
     };
@@ -259,7 +259,7 @@ const Cart = () => {
               token={onToken}
               stripeKey={KEY}
             >
-              <Button>CHECKOUT NOW</Button>
+              {cart.total === 0 && <Button disabled>CHECKOUT NOW</Button> || <Button>CHECKOUT NOW</Button>}
             </StripeCheckout>
           </Summary>
         </Bottom>
