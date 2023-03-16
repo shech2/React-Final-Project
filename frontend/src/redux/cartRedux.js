@@ -8,22 +8,36 @@ const cartSlice = createSlice({
         quantity: 0,
     },
     reducers: {
-        // prevent duplicate products and keep quantity 1
+        // prevent duplicate products and keep cart quantity 1
         addProduct: (state, action) => {
             const product = action.payload;
             const productExists = state.products.find((p) => p._id === product._id);
             if (productExists) {
                 productExists.quantity += 1;
+                state.total += product.price;
             } else {
                 state.products.push({ ...product, quantity: product.quantity });
-            }
-            if (!productExists) {
                 state.quantity += 1;
+                state.total += product.price * product.quantity;
             }
-            state.total += product.price * product.quantity;
+        },
+        removeProduct: (state, action) => {
+            const product = action.payload;
+            const productExists = state.products.find((p) => p._id === product._id);
+            if (productExists) {
+                productExists.quantity -= 1;
+            } else {
+                state.products.reduce({ ...product, quantity: product.quantity });
+                state.quantity -= 1;
+            }
+            if (product.quantity === 1) {
+                state.products = state.products.filter((p) => p._id !== product._id);
+                state.quantity -= 1;
+            }
+            state.total -= product.price;
         }
     }
 });
 
-export const { addProduct } = cartSlice.actions;
+export const { addProduct, removeProduct } = cartSlice.actions;
 export default cartSlice.reducer;

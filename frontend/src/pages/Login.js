@@ -101,7 +101,7 @@ const Login = () => {
           <Input placeholder="username" ref={emailRef} />
           <Input placeholder="password" ref={passwordRef} />
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <Link onClick={() => navigate("/register")}>CREATE A NEW ACCOUNT</Link>
           <Button type="submit" >LOGIN</Button>
         </Form>
       </Wrapper>

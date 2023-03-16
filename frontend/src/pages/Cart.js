@@ -9,6 +9,9 @@ import StripeCheckout from "react-stripe-checkout";
 import { useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { addProduct, removeProduct } from "../redux/cartRedux";
+
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -164,6 +167,7 @@ const Button = styled('button')({
 const Cart = () => {
   const cart = useSelector(state => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
+  const dispatch = useDispatch();
   const history = useNavigate();
 
   const onToken = (token) => {
@@ -193,9 +197,9 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <TopButton onClick={() => history("/")}>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag (2)</TopText>
+            <TopText>Shopping Bag ({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           <TopButton>CHECKOUT NOW</TopButton>
@@ -213,9 +217,11 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
+                    <Add onClick={() => dispatch(addProduct(product))} />
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove />
+                    <Remove onClick={() => {
+                      dispatch(removeProduct(product));
+                    }} />
                   </ProductAmountContainer>
                   <ProductPrice>
                     {product.price * product.quantity}$
