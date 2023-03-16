@@ -1,9 +1,10 @@
 import stripe from "stripe";
-stripe(process.env.STRIPE_KEY);
+
+const Stripe = stripe(process.env.STRIPE_KEY);
 
 
 const checkout = (req, res) => {
-    stripe.charges.create(
+    Stripe.charges.create(
         {
             source: req.body.tokenId,
             amount: req.body.amount,
