@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router';
 
 const Container = styled(Box)({
 
@@ -105,6 +106,7 @@ const Product = () => {
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
     const { currentUser } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getProduct = async () => {
@@ -131,6 +133,7 @@ const Product = () => {
             dispatch(addProduct({ ...product, quantity }));
         else {
             alert("Please Login to add items to cart");
+            navigate("/login");
         }
     };
 
