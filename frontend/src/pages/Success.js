@@ -8,13 +8,11 @@ import { emptyCart } from "../redux/cartRedux";
 
 const Success = () => {
   const location = useLocation();
-  //in Cart.jsx I sent data and cart. Please check that page for the changes.(in video it's only data)
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const data = location.state.stripeData;
   const cart = location.state.products;
   const dispatch = useDispatch();
-  console.log(cart);
 
 
   const [orderId, setOrderId] = useState(null);
