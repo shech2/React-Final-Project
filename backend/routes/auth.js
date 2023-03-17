@@ -5,6 +5,6 @@ import { createUser, getUser } from "../controllers/authController.js";
 
 router.post("/", createUser);
 
-router.get("/", getUser);
+router.get("/:id", getUser);
 
 export default router;

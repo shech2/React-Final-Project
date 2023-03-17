@@ -46,7 +46,6 @@ const Products = ({ cat, filters, sort }) => {
         };
         getBooks();
     }, [API_KEY]);
-    console.log(books);
 
 
     useEffect(() => {
@@ -58,7 +57,6 @@ const Products = ({ cat, filters, sort }) => {
                         : "http://localhost:5000/api/products"
                 );
                 setProducts(res.data);
-                console.log(res);
             } catch (err) {
                 console.log(err);
             }

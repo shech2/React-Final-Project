@@ -85,7 +85,6 @@ const Login = () => {
     setError('');
     try {
       await login(emailRef.current.value, passwordRef.current.value).then((user) => {
-        console.log(user._tokenResponse);
         navigate('/');
       })
     } catch (error) {

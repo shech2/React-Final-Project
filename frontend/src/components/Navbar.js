@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Container = styled('div')({
     height: '60px',
@@ -77,6 +79,21 @@ const Navbar = () => {
     const quantity = useSelector(state => state.cart.quantity);
     const navigate = useNavigate();
     const { logout, currentUser } = useAuth();
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        const getUser = async () => {
+            const user = await axios({
+                method: "GET",
+                url: "http://localhost:5000/api/users/" + currentUser?.uid,
+            })
+            setUser(user.data[0]);
+        };
+        getUser();
+    }, [currentUser]);
+
+    console.log(user);
+
 
     const signOutHandler = () => {
         logout();
@@ -92,6 +109,7 @@ const Navbar = () => {
                         <Input placeholder="Search" />
                         <Search style={{ color: "gray", fontSize: 16 }} />
                     </SearchContainer>
+                    {currentUser?.email && user?.isAdmin ? <MenuItem onClick={() => window.location.href = "http://localhost:3001/"}>ADMIN Panel</MenuItem> : null}
                 </Left>
                 <Center>
                     <Logo onClick={() => navigate("/")}>Books</Logo>

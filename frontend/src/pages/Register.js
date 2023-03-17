@@ -77,15 +77,16 @@ const Register = () => {
     }
     try {
       await signup(emailRef.current.value, passwordRef.current.value).then((res) => {
+        console.log(res.user.uid);
         axios.post('http://localhost:5000/api/users', {
+          uid: res.user.uid,
           email: emailRef.current.value,
           isAdmin: false,
         }).then((res) => {
-          console.log(res);
+          navigate('/');
         }).catch((err) => {
           console.log(err);
         });
-        navigate('/');
       });
     } catch (error) {
       setError(error.message);
