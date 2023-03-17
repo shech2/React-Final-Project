@@ -8,7 +8,6 @@ import { emptyCart } from "../redux/cartRedux";
 
 const Success = () => {
   const location = useLocation();
-  //in Cart.jsx I sent data and cart. Please check that page for the changes.(in video it's only data)
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const data = location.state.stripeData;
@@ -25,7 +24,7 @@ const Success = () => {
           userId: currentUser.uid,
           products: cart.products.map((item) => ({
             productId: item._id,
-            quantity: item._quantity,
+            quantity: item.quantity,
           })),
           amount: cart.total,
           address: data.billing_details.address,

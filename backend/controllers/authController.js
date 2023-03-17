@@ -13,7 +13,7 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const user = await auth.findById(req.body);
+        const user = await auth.find({ uid: req.params.id });
         res.status(200).json(user);
     } catch (error) {
         res.status(500).json(error);
