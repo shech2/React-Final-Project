@@ -5,7 +5,8 @@ import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
 import Products from '../components/Products';
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { publicRequest } from '../requestMethods';
 
 const Container = styled('div')({
 
@@ -43,16 +44,48 @@ const Option = styled('option')({
 const ProductList = () => {
     const location = useLocation();
     const cat = location.pathname.split("/")[2];
-    const[filters, setFilter] = useState({});
-    const[sort, setSort] = useState("newest");
+    const [filters, setFilter] = useState({});
+    const [sort, setSort] = useState("newest");
+    const [genre, setGenre] = useState([]);
+    const [topic, setTopic] = useState([]);
 
     const handleFilters = (e) => {
         const value = e.target.value;
+        // if the value is "Genre" or "Topic", then return all products
+        if (value === "Genre" || value === "Topic") {
+            setFilter({});
+            return;
+        };
+
         setFilter({
             ...filters,
             [e.target.name]: value,
         });
     };
+
+    useEffect(() => {
+        const getProductByCat = async () => {
+            try {
+                const res = await publicRequest.get("/products?category=" + cat);
+                // iterate through the products and get the unique genre and topic
+                const genreSet = new Set();
+                const topicSet = new Set();
+                res.data.map((product) => {
+                    product.genre.map((g) => genreSet.add(g));
+                    product.topic.map((t) => topicSet.add(t));
+                });
+                setGenre([...genreSet]);
+                setTopic([...topicSet]);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getProductByCat();
+    }, [cat]);
+
+    console.log(genre);
+    console.log(topic);
+
 
     return (
         <Container>
@@ -66,31 +99,29 @@ const ProductList = () => {
                         <Option disabled>
                             Genre
                         </Option>
-                        <Option>Romantic literature</Option>
-                        <Option>youth</Option>
-                        <Option>Children's Books</Option>
-                        <Option>prose</Option>
+                        {genre.map((c) => (
+                            <Option key={c}>{c}</Option>
+                        ))}
                     </Select>
                     <Select name="topic" onChange={handleFilters}>
-                        <Option disabled>
+                        <Option>
                             Topic
                         </Option>
-                        <Option>Love</Option>
-                        <Option>Science fiction and fantasy</Option>
-                        <Option>Tension</Option>
-                        <Option>Life</Option>
+                        {topic.map((c) => (
+                            <Option key={c}>{c}</Option>
+                        ))}
                     </Select>
                 </Filter>
                 <Filter>
                     <FilterText>Sort Products</FilterText>
-                    <Select onChange={(e)=> setSort(e.target.value)}>
+                    <Select onChange={(e) => setSort(e.target.value)}>
                         <Option value="newest">Newest</Option>
                         <Option value="asc">Price (asc)</Option>
                         <Option value="desc">Price (desc)</Option>
                     </Select>
                 </Filter>
             </FilterContainer>
-            <Products cat = {cat} filters={filters} sort = {sort} />
+            <Products cat={cat} filters={filters} sort={sort} />
             <Newsletter />
             <Footer />
         </Container>
