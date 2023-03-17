@@ -26,20 +26,38 @@ export const categories = [
     {
         id: 1,
         img: "https://i.pinimg.com/564x/a2/5d/78/a25d787bc590da0db940ee7c948fadc4.jpg",
-        title: "NEW RELEASES",
-        cat:"new"
+        title: "COMPUTERS",
+        cat: "Computers"
     },
     {
         id: 2,
         img: "https://i.pinimg.com/564x/10/2f/6e/102f6e23b4950bbaaddefbe38a177301.jpg",
         title: "SIGNED EDITIONS",
-        cat:"signed"
+        cat: "Games & Activities"
     },
     {
         id: 3,
         img: "https://i.pinimg.com/564x/33/c6/96/33c696c0a01c62e29e030ca45c7b87f0.jpg",
         title: "BEST SELLERS",
-        cat:"best"
+        cat: "Love"
+    },
+    {
+        id: 4,
+        img: "https://i.pinimg.com/564x/33/c6/96/33c696c0a01c62e29e030ca45c7b87f0.jpg",
+        title: "BEST SELLERS",
+        cat: "Social Science"
+    },
+    {
+        id: 5,
+        img: "https://i.pinimg.com/564x/33/c6/96/33c696c0a01c62e29e030ca45c7b87f0.jpg",
+        title: "BEST SELLERS",
+        cat: "Fiction"
+    },
+    {
+        id: 6,
+        img: "https://i.pinimg.com/564x/33/c6/96/33c696c0a01c62e29e030ca45c7b87f0.jpg",
+        title: "BEST SELLERS",
+        cat: "Psychology"
     },
 ];
 
