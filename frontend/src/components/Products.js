@@ -34,7 +34,7 @@ const Products = ({ cat, filters, sort }) => {
                                 categories: book.volumeInfo.categories,
                                 genre: book.volumeInfo.categories,
                                 topic: book.volumeInfo.subtitle,
-                                price: 10,
+                                price: Math.floor(Math.random() * 100) + 1,
                                 inStock: true,
                             })
                         )
