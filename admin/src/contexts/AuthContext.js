@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 const socket = io('http://localhost:5001');
 
 socket.on('connect', () => {
-    console.log('Auth Context Client connected');
+    console.log('Admin Context Client connected');
 });
 socket.on('login', (email) => {
     console.log(`${email} logged in`);

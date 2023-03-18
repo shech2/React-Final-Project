@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { updateUser } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
-import  app  from "../../firebase";
+import  app  from "../../firebase-config";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 

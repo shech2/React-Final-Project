@@ -7,12 +7,12 @@ ws.on('connection', (socket) => {
 
     socket.on('login', (email) => {
         console.log(`${email} logged in`);
-        ws.emit('user:login', email);
+        ws.emit('login', email);
     });
 
     socket.on('logout', (email) => {
         console.log(`${email} logged out`);
-        ws.emit('user:logout', email);
+        ws.emit('logout', email);
     });
 
     socket.on('disconnect', () => {

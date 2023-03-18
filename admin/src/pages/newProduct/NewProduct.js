@@ -2,7 +2,7 @@
 import "./newProduct.css";
 import { useState } from "react";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import app from "../../firebase";
+import app from "../../firebase-config";
 import { addProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
 
