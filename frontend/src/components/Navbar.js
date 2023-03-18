@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Search, ShoppingCartOutlined } from '@mui/icons-material';
 import { Badge } from '@mui/material';
-import { mobile } from '../responsive';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Container = styled('div')({
     height: '60px',
-    // ...mobile({ height: '50px' }),
+    position: 'relative'
 });
 
 const Wrapper = styled('div')({
@@ -20,20 +18,18 @@ const Wrapper = styled('div')({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // ...mobile({ padding: '10px 0px' }),
 });
 
 const Left = styled('div')({
     flex: 1,
     display: 'flex',
-    alignitems: 'center',
+    alignItems: 'center',
 });
 
 const Language = styled('span')({
     fontSize: '18px',
     cursor: 'pointer',
     marginTop: '5px',
-    // ...mobile({ display: 'none' }),
 });
 
 const SearchContainer = styled('div')({
@@ -46,12 +42,10 @@ const SearchContainer = styled('div')({
 
 const Input = styled('input')({
     border: 'none',
-    // ...mobile({ width: '50px' }),
 });
 
 const Logo = styled('h1')({
     fontWeight: 'bold',
-    // ...mobile({ fontSize: '24px' }),
 });
 
 const Right = styled('div')({
@@ -59,7 +53,6 @@ const Right = styled('div')({
     display: 'flex',
     alignitems: 'center',
     justifyContent: 'flex-end',
-    // ...mobile({ flex: 2, justifyContent: 'center' }),
 });
 
 const Center = styled('div')({
@@ -72,33 +65,75 @@ const MenuItem = styled('div')({
     cursor: 'pointer',
     marginLeft: '30px',
     marginRight: '20px',
-    // ...mobile({ fontSize: '14px', marginLeft: '10px', marginRight: '10px'}),
+});
+
+const SearchResults = styled('div')({
+    position: 'absolute',
+    top: '70px',
+    left: '0',
+    width: '300px',
+    maxHeight: '400px',
+    backgroundColor: 'white',
+    zIndex: '999',
+    overflow: 'auto',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+    borderRadius: '4px',
+    padding: '10px'
+});
+
+const SearchItem = styled('div')({
+    padding: '5px',
+    cursor: 'pointer',
+    '&:hover': {
+        backgroundColor: '#f9f9f9',
+    },
 });
 
 const Navbar = () => {
-    const quantity = useSelector(state => state.cart.quantity);
+    const quantity = useSelector((state) => state.cart.quantity);
     const navigate = useNavigate();
     const { logout, currentUser } = useAuth();
     const [user, setUser] = useState({});
+    const [searchResults, setSearchResults] = useState([]);
+    const [showResults, setShowResults] = useState(false);
 
     useEffect(() => {
         const getUser = async () => {
             const user = await axios({
                 method: "GET",
                 url: "http://localhost:5000/api/users/" + currentUser?.uid,
-            })
+            });
             setUser(user.data[0]);
         };
         getUser();
     }, [currentUser]);
 
-    console.log(user);
-
-
     const signOutHandler = () => {
         logout();
         navigate("/");
     };
+
+    const handleSearch = async (event) => {
+        const query = event.target.value.toLowerCase();
+        if (query.trim() === "") {
+            setSearchResults([]);
+            setShowResults(false);
+            return;
+        }
+        try {
+            const response = await axios.get(
+                `http://localhost:5000/api/products`
+            );
+            const filteredResults = response.data.filter((product) =>
+                product.title.toLowerCase().includes(query)
+            );
+            setSearchResults(filteredResults);
+            setShowResults(true);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 
     return (
         <Container>
@@ -106,32 +141,52 @@ const Navbar = () => {
                 <Left>
                     <Language>EN</Language>
                     <SearchContainer>
-                        <Input placeholder="Search" />
+                        <Input placeholder="Search" onChange={handleSearch} />
                         <Search style={{ color: "gray", fontSize: 16 }} />
                     </SearchContainer>
-                    {currentUser?.email && user?.isAdmin ? <MenuItem onClick={() => window.location.href = "http://localhost:3001/"}>ADMIN Panel</MenuItem> : null}
+                    {currentUser?.email && user?.isAdmin ? (
+                        <MenuItem onClick={() => (window.location.href = "http://localhost:3001/")}>
+                            ADMIN Panel
+                        </MenuItem>
+                    ) : null}
                 </Left>
                 <Center>
                     <Logo onClick={() => navigate("/")}>Books</Logo>
                 </Center>
                 <Right>
-                    {currentUser?.email ?
+                    {currentUser?.email ? (
                         <MenuItem onClick={signOutHandler}>SIGN OUT</MenuItem>
-                        :
-                        <MenuItem onClick={() => navigate("/login")} style={{ marginLeft: '20px' }}>SIGN IN</MenuItem>}
-                    {currentUser?.email ? <MenuItem>Welcome , {currentUser?.email}</MenuItem> :
-                        <MenuItem onClick={() => navigate("/register")}>REGISTER</MenuItem>}
+                    ) : (
+                        <MenuItem onClick={() => navigate("/login")} style={{ marginLeft: "20px" }}>
+                            SIGN IN
+                        </MenuItem>
+                    )}
+                    {currentUser?.email ? (
+                        <MenuItem>Welcome , {currentUser?.email}</MenuItem>
+                    ) : (
+                        <MenuItem onClick={() => navigate("/register")}>REGISTER</MenuItem>
+                    )}
                     <Link to="/cart">
                         <MenuItem>
                             <Badge badgeContent={quantity} color="primary">
-                                <ShoppingCartOutlined style={{ fontSize: '30px' }} />
+                                <ShoppingCartOutlined style={{ fontSize: "30px" }} />
                             </Badge>
                         </MenuItem>
                     </Link>
                 </Right>
             </Wrapper>
+            {showResults && (
+                <SearchResults>
+                    {searchResults.map((product) => (
+                        <Link key={product._id} to={`/product/${product._id}`}>
+                            <SearchItem>{product.title}</SearchItem>
+                        </Link>
+                    ))}
+                </SearchResults>
+            )}
         </Container>
     );
 };
+
 
 export default Navbar;
