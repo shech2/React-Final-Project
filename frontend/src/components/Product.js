@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../redux/cartRedux';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const Info = styled('div')({
     opacity: 0,
@@ -66,6 +69,25 @@ const Icon = styled('div')({
 
 const Product = ({ item }) => {
     const [isHovering, setIsHovering] = useState(false);
+    const dispatch = useDispatch();
+    const [product, setProduct] = useState(null);
+
+
+    useEffect(() => {
+        const getProduct = async () => {
+            try {
+                const res = await axios.get(`http://localhost:5000/api/products/find/${item._id}`);
+                setProduct(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getProduct();
+    }, [item._id]);
+
+    const addToCart = () => {
+        dispatch(addProduct({ ...product, quantity: 1 }));
+    };
 
     return (
         <Container
@@ -76,15 +98,12 @@ const Product = ({ item }) => {
             <Image src={item.img} />
             <Info style={{ opacity: isHovering ? 1 : 0 }}>
                 <Icon>
-                    <ShoppingCartOutlined />
+                    <ShoppingCartOutlined onClick={addToCart} />
                 </Icon>
                 <Icon>
                     <Link to={`/product/${item._id}`}>
                         <SearchOutlined />
                     </Link>
-                </Icon>
-                <Icon>
-                    <FavoriteBorderOutlined />
                 </Icon>
             </Info>
         </Container>

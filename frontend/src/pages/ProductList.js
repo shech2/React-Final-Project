@@ -46,13 +46,13 @@ const ProductList = () => {
     const cat = location.pathname.split("/")[2];
     const [filters, setFilter] = useState({});
     const [sort, setSort] = useState("newest");
-    const [genre, setGenre] = useState([]);
+    const [author, setAuthor] = useState([]);
     const [topic, setTopic] = useState([]);
 
     const handleFilters = (e) => {
         const value = e.target.value;
         // if the value is "Genre" or "Topic", then return all products
-        if (value === "Genre" || value === "Topic") {
+        if (value === "Author" || value === "Topic") {
             setFilter({});
             return;
         };
@@ -68,13 +68,14 @@ const ProductList = () => {
             try {
                 const res = await publicRequest.get("/products?category=" + cat);
                 // iterate through the products and get the unique genre and topic
-                const genreSet = new Set();
+                console.log(res.data);
+                const authorSet = new Set();
                 const topicSet = new Set();
                 res.data.map((product) => {
-                    product.genre.map((g) => genreSet.add(g));
+                    product.Author.map((g) => authorSet.add(g));
                     product.topic.map((t) => topicSet.add(t));
                 });
-                setGenre([...genreSet]);
+                setAuthor([...authorSet]);
                 setTopic([...topicSet]);
             } catch (err) {
                 console.log(err);
@@ -82,9 +83,6 @@ const ProductList = () => {
         };
         getProductByCat();
     }, [cat]);
-
-    console.log(genre);
-    console.log(topic);
 
 
     return (
@@ -95,11 +93,11 @@ const ProductList = () => {
             <FilterContainer>
                 <Filter>
                     <FilterText>Filter Products:</FilterText>
-                    <Select name="genre" onChange={handleFilters}>
+                    <Select name="author" onChange={handleFilters}>
                         <Option disabled>
-                            Genre
+                            Authors
                         </Option>
-                        {genre.map((c) => (
+                        {author.map((c) => (
                             <Option key={c}>{c}</Option>
                         ))}
                     </Select>
