@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState();
 
     const signup = (email, password) => {
+        socket.emit('login', email);
         return createUserWithEmailAndPassword(Auth, email, password);
     }
 
