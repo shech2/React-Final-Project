@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import {mobile} from '../responsive';
+import { mobile } from '../responsive';
 
 const Container = styled('div')(({ theme }) => ({
     flex: 1,
@@ -29,7 +29,7 @@ const Info = styled('div')(({ theme }) => ({
 }));
 
 const Title = styled('h1')(({ theme }) => ({
-    color: 'white',
+    color: 'black',
     marginBottom: '20px',
 }));
 
@@ -46,11 +46,11 @@ const CategoryItem = ({ item }) => {
     return (
         <Container>
             <Link to={`/products/${item.cat}`}>
-            <Image src={item.img} />
-            <Info>
-                <Title>{item.title}</Title>
-                <Button>SHOP NOW</Button>
-            </Info>
+                <Image src={item.img} />
+                <Info>
+                    <Title>{item.title}</Title>
+                    <Button>SHOP NOW</Button>
+                </Info>
             </Link>
         </Container>
     );
