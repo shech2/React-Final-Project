@@ -13,20 +13,21 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        if(req.params.id){ 
         const user = await auth.find({ uid: req.params.id });
         res.status(200).json(user);
-        } else {
-        const users = await auth.find();
-        res.status(200).json(users);
-        }
     } catch (error) {
         res.status(500).json(error);
     }
 };
 
-
-
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await auth.find();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
 
 const getStats = async (req, res) => {
   const currentYear = parseInt(req.query.year || new Date().getFullYear(), 10);
@@ -39,4 +40,4 @@ const getStats = async (req, res) => {
     }
   };
 
-export { createUser, getUser , getStats };
+export { createUser, getUser , getStats , getAllUsers };

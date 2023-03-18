@@ -7,6 +7,7 @@ import { userData } from "../../dummyData"
 import { useEffect } from "react"
 import { userRequest } from "../../requestMethods"
 import { useState } from "react"
+import { useMemo } from "react"
 
 export default function Home() {
     const [userStats, setUserStats] = useState([]);
