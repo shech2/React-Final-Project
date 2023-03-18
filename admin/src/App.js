@@ -11,8 +11,29 @@ import NewUser from "./pages/newUser/NewUser";
 import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
+import io from 'socket.io-client';
 
 function App() {
+
+  const socket = io('http://localhost:5001');
+
+  socket.on('connect', () => {
+    console.log('Client connected');
+  });
+
+  socket.on('user:login', (user) => {
+    console.log(`${user} logged in`);
+  });
+
+  socket.on('user:logout', (user) => {
+    console.log(`${user} logged out`);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+
+
   return (
     <Router>
       <Topbar />
