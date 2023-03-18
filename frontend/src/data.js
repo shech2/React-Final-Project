@@ -25,38 +25,38 @@ export const sliderItems = [
 export const categories = [
     {
         id: 1,
-        img: "https://i.pinimg.com/564x/a2/5d/78/a25d787bc590da0db940ee7c948fadc4.jpg",
+        img: "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/36387/desktop-personal-computer-clipart-md.png",
         title: "COMPUTERS",
         cat: "Computers"
     },
     {
         id: 2,
         img: "https://i.pinimg.com/564x/10/2f/6e/102f6e23b4950bbaaddefbe38a177301.jpg",
-        title: "SIGNED EDITIONS",
+        title: "Games & Activities",
         cat: "Games & Activities"
     },
     {
         id: 3,
-        img: "https://i.pinimg.com/564x/33/c6/96/33c696c0a01c62e29e030ca45c7b87f0.jpg",
-        title: "BEST SELLERS",
+        img: "https://img.freepik.com/premium-photo/pretty-rainbow-heart-illustration-with-isolated-background_742252-4086.jpg?w=360",
+        title: "Love",
         cat: "Love"
     },
     {
         id: 4,
-        img: "https://i.pinimg.com/564x/33/c6/96/33c696c0a01c62e29e030ca45c7b87f0.jpg",
-        title: "BEST SELLERS",
+        img: "https://www.worldatlas.com/r/w1200/upload/38/4f/7a/shutterstock-87113380.jpg",
+        title: "Social Science",
         cat: "Social Science"
     },
     {
         id: 5,
-        img: "https://i.pinimg.com/564x/33/c6/96/33c696c0a01c62e29e030ca45c7b87f0.jpg",
-        title: "BEST SELLERS",
+        img: "https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/XRGL7V4M5VAZHKR7VDB7F6XILE.jpg",
+        title: "Fiction",
         cat: "Fiction"
     },
     {
         id: 6,
-        img: "https://i.pinimg.com/564x/33/c6/96/33c696c0a01c62e29e030ca45c7b87f0.jpg",
-        title: "BEST SELLERS",
+        img: "https://www.artshub.com.au/wp-content/uploads/sites/2/2019/04/2-278156-Main-0x0-0.jpg?w=996",
+        title: "Psychology",
         cat: "Psychology"
     },
 ];
