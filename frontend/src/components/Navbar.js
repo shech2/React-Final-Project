@@ -114,6 +114,22 @@ const Navbar = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
 
+    const handleSearchContainerClick = (event) => {
+        event.stopPropagation();
+    };
+
+    const handleDocumentClick = () => {
+        setShowResults(false);
+    };
+
+
+    useEffect(() => {
+        document.addEventListener("click", handleDocumentClick);
+        return () => {
+            document.removeEventListener("click", handleDocumentClick);
+        };
+    }, []);
+    
     useEffect(() => {
         const getUser = async () => {
             const user = await axios({
@@ -156,7 +172,7 @@ const Navbar = () => {
             <Wrapper>
                 <Left>
                     <Language>EN</Language>
-                    <SearchContainer>
+                    <SearchContainer onClick={handleSearchContainerClick}>
                         <Input placeholder="Search" onChange={handleSearch} />
                         <Search style={{ color: "gray", fontSize: 16 }} />
                     </SearchContainer>
@@ -169,7 +185,7 @@ const Navbar = () => {
                 <Center>
                     <Logo onClick={() => navigate("/")}>Books</Logo>
                     {searchResults.length > 0 && showResults && (
-                        <SearchResults>
+                        <SearchResults onClick={handleSearchContainerClick}>
                             {searchResults.map((result) => (
                                 <Link key={result._id} to={`/product/${result._id}`}>
                                     <SearchItem>

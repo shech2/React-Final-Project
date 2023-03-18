@@ -25,26 +25,15 @@ const getUser = async (req, res) => {
     }
 };
 
+
+
+
 const getStats = async (req, res) => {
-    const date = new Date();
-    const lastYear = new Date(date.setFullYear(date.getFullYear()));
-  
+  const currentYear = parseInt(req.query.year || new Date().getFullYear(), 10);
+
     try {
-      const data = await auth.aggregate([
-        { $match: { createdAt: { $gte: lastYear } } },
-        {
-          $project: {
-            month: { $month: "$createdAt" },
-          },
-        },
-        {
-          $group: {
-            _id: "$month",
-            total: { $sum: 1 },
-          },
-        },
-      ]);
-      res.status(200).json(data)
+      const data = await auth.find();
+      res.status(200).json(data);
     } catch (err) {
       res.status(500).json(err);
     }
