@@ -8,8 +8,24 @@ import orderRoute from "./routes/order.js";
 import stripeRoute from "./routes/stripe.js";
 import usersRoute from "./routes/auth.js";
 import cors from "cors";
+import ws from './WebSocket/ws.js';
+import http from 'http';
 
 dotenv.config();
+
+const server = http.createServer(app);
+
+server.listen(5001, () => {
+    console.log("Websocket server is running!\n" + "on port: " + 5001 + "\n");
+});
+
+ws.attach(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
+
 
 mongoose
     .connect(process.env.MONGO_URL)
