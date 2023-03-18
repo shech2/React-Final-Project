@@ -65,6 +65,8 @@ const MenuItem = styled('div')({
     cursor: 'pointer',
     marginLeft: '30px',
     marginRight: '20px',
+    display: 'flex', // add display:flex to make the child elements align vertically
+    alignItems: 'center', // vertically center align the child elements
 });
 
 const SearchResults = styled('div')({
@@ -84,8 +86,10 @@ const SearchResults = styled('div')({
 const SearchItem = styled('div')({
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     padding: '5px',
     cursor: 'pointer',
+    borderBottom: '1px solid #ccc',
     '&:hover': {
         backgroundColor: '#f9f9f9',
     },
@@ -97,6 +101,10 @@ const SearchItemImage = styled('img')({
     marginRight: '10px',
 });
 
+const SearchItemName = styled('div')({
+    flexGrow: 1,
+    textAlign: 'center',
+});
 
 const Navbar = () => {
     const quantity = useSelector((state) => state.cart.quantity);
@@ -143,7 +151,6 @@ const Navbar = () => {
         }
     };
 
-
     return (
         <Container>
             <Wrapper>
@@ -161,6 +168,19 @@ const Navbar = () => {
                 </Left>
                 <Center>
                     <Logo onClick={() => navigate("/")}>Books</Logo>
+                    {searchResults.length > 0 && showResults && (
+                        <SearchResults>
+                            {searchResults.map((result) => (
+                                <Link key={result._id} to={`/product/${result._id}`}>
+                                    <SearchItem>
+                                        <SearchItemImage src={result.image} alt={result.title} />
+                                        <SearchItemName>{result.title}</SearchItemName>
+                                        <div>${result.price}</div>
+                                    </SearchItem>
+                                </Link>
+                            ))}
+                        </SearchResults>
+                    )}
                 </Center>
                 <Right>
                     {currentUser?.email ? (
@@ -189,8 +209,14 @@ const Navbar = () => {
                     {searchResults.map((product) => (
                         <SearchItem key={product._id} onClick={() => setShowResults(false)}>
                             <Link to={`/product/${product._id}`}>
-                                <SearchItemImage src={product.image} alt={product.title} />
-                                {product.title}
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <SearchItemImage src={product.image} alt={product.title} />
+                                    <div style={{ marginLeft: '20px', textAlign: 'center' }}>
+                                        <h2 style={{ fontSize: '18px', color: 'black', textDecoration: 'none' }}>{product.title}</h2>
+                                    </div>
+                                </div>
+
+
                             </Link>
                         </SearchItem>
                     ))}
