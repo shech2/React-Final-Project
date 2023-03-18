@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { styled } from '@mui/material/styles';
-// import { login } from "../redux/apiCalls";
-// import { mobile } from "../responsive";
+import { CircularProgress } from '@mui/material'
 import { useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from 'react-router-dom';
-
 
 const Container = styled('div')({
   width: '100vw',
@@ -13,7 +11,7 @@ const Container = styled('div')({
   background: `linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
-    ), url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center`,
+    ), url("https://www.pixelstalk.net/wp-content/uploads/2016/06/Book-desktop-wallpaper-images-hd-wallpapers.jpg") center`,
   backgroundSize: 'cover',
   display: 'flex',
   alignItems: 'center',
@@ -24,9 +22,6 @@ const Wrapper = styled('div')({
   width: '25%',
   padding: '20px',
   backgroundColor: 'white',
-  // '@media(max-width: 768px)': {
-  //   width: '75%',
-  // },
 });
 
 const Title = styled('h1')({
@@ -46,7 +41,7 @@ const Input = styled('input')({
   padding: '10px',
 });
 
-const Button = styled('button')({
+const Button = styled('button')(({ theme }) => ({
   width: '40%',
   border: 'none',
   padding: '15px 20px',
@@ -58,7 +53,10 @@ const Button = styled('button')({
     color: 'green',
     cursor: 'not-allowed',
   },
-});
+  [theme.breakpoints.down('sm')]: {
+    width: '75%',
+  },
+}));
 
 const Link = styled('a')({
   margin: '5px 0px',
@@ -71,41 +69,59 @@ const Error = styled('span')({
   color: 'red',
 });
 
+const Spinner = styled(CircularProgress)({
+  color: 'white',
+});
+
+const ButtonWrapper = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '10px',
+});
+
 const Login = () => {
-  const { login, currentUser } = useAuth();
-  const [error, setError] = useState('')
   const emailRef = useRef();
   const passwordRef = useRef();
+  const { login } = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-
-
-  const handleLogin = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setError('');
-    try {
-      await login(emailRef.current.value, passwordRef.current.value).then((user) => {
-        navigate('/');
-      })
-    } catch (error) {
-      setError(error.message);
-    }
 
+    try {
+      setError('');
+      setLoading(true);
+      await login(emailRef.current.value, passwordRef.current.value);
+      setTimeout(() => {
+        setLoading(false);
+        navigate('/');
+      }, 1000);
+    } catch {
+      setError('Failed to log in');
+      setLoading(false);
+    }
   }
+
   return (
     <Container>
       <Wrapper>
-        <Title>SIGN IN</Title>
-        <Form onSubmit={handleLogin}>
-          <Input placeholder="username" ref={emailRef} />
-          <Input placeholder="password" ref={passwordRef} />
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link onClick={() => navigate("/register")}>CREATE A NEW ACCOUNT</Link>
-          <Button type="submit" >LOGIN</Button>
+        <Title>Login</Title>
+        <Form onSubmit={handleSubmit}>
+          <Input type="email" placeholder="Email" ref={emailRef} required />
+          <Input type="password" placeholder="Password" ref={passwordRef} required />
+          {error && <Error>{error}</Error>}
+          <ButtonWrapper>
+            <Button disabled={loading} type="submit">
+              {loading ? <Spinner size={20} /> : 'Login'}
+            </Button>
+          </ButtonWrapper>
         </Form>
+        <Link href="#">Forgot Password?</Link>
       </Wrapper>
     </Container>
   );
-};
+}
 
 export default Login;
