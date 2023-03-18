@@ -8,8 +8,8 @@ import orderRoute from "./routes/order.js";
 import stripeRoute from "./routes/stripe.js";
 import usersRoute from "./routes/auth.js";
 import cors from "cors";
-import http from 'http';
 import ws from './WebSocket/ws.js';
+import http from 'http';
 
 dotenv.config();
 

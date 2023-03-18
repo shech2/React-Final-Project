@@ -1,6 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateEmail, sendPasswordResetEmail, deleteUser } from "firebase/auth";
 import { Auth } from '../firebase-config';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:5001');
+
+socket.on('connect', () => {
+    console.log('Auth Context Client connected');
+});
 
 const AuthContext = createContext();
 
@@ -20,10 +27,12 @@ export const AuthProvider = ({ children }) => {
     }
 
     const login = (email, password) => {
+        socket.emit('login', email);
         return signInWithEmailAndPassword(Auth, email, password);
     }
 
     const logout = () => {
+        socket.emit('logout', currentUser.email);
         return signOut(Auth);
     }
 

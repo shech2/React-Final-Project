@@ -5,14 +5,14 @@ const ws = new Server();
 ws.on('connection', (socket) => {
     console.log('Client connected');
 
-    socket.on('login', (user) => {
-        console.log(`${user} logged in`);
-        ws.emit('user:login', user);
+    socket.on('login', (email) => {
+        console.log(`${email} logged in`);
+        ws.emit('user:login', email);
     });
 
-    socket.on('logout', (user) => {
-        console.log(`${user} logged out`);
-        ws.emit('user:logout', user);
+    socket.on('logout', (email) => {
+        console.log(`${email} logged out`);
+        ws.emit('user:logout', email);
     });
 
     socket.on('disconnect', () => {
