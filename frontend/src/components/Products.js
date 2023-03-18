@@ -21,18 +21,19 @@ const Products = ({ cat, filters, sort }) => {
 
     useEffect(() => {
         const getBooks = async () => {
-            axios.get(`https://www.googleapis.com/books/v1/volumes?q=wild&key=${API_KEY}&maxResults=40`)
+            axios.get(`https://www.googleapis.com/books/v1/volumes?q=computers&key=${API_KEY}&maxResults=40`)
                 .then(response => {
                     setBooks(books);
                     const booksUpdated = response.data.items;
+                    console.log(booksUpdated);
                     booksUpdated.map(book => {
                         return (
-                            axios.post('http://localhost:5000/api/products', {
+                            axios.post('http://localhost:5000/api/products/', {
                                 title: book.volumeInfo.title,
                                 desc: book.volumeInfo.description,
                                 img: book.volumeInfo.imageLinks.thumbnail,
                                 categories: book.volumeInfo.categories,
-                                genre: book.volumeInfo.categories,
+                                Author: book.volumeInfo.authors,
                                 topic: book.volumeInfo.subtitle,
                                 price: Math.floor(Math.random() * 100) + 1,
                                 inStock: true,
