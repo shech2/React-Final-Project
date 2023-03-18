@@ -80,48 +80,48 @@ const ButtonWrapper = styled('div')({
 });
 
 const Login = () => {
-  const { login, currentUser } = useAuth();
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
+  const { login } = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setError('');
-    setIsLoading(true);
-    setTimeout(async () => {
-      try {
-        await login(emailRef.current.value, passwordRef.current.value).then((user) => {
-          navigate('/');
-        })
-      } catch (error) {
-        setError(error.message);
-      }
-      setIsLoading(false);
-    }, 1000);
+
+    try {
+      setError('');
+      setLoading(true);
+      await login(emailRef.current.value, passwordRef.current.value);
+      setTimeout(() => {
+        setLoading(false);
+        navigate('/');
+      }, 1000);
+    } catch {
+      setError('Failed to log in');
+      setLoading(false);
+    }
   }
 
   return (
     <Container>
       <Wrapper>
-        <Title>SIGN IN</Title>
-        <Form onSubmit={handleLogin}>
-          <Input placeholder="Email" ref={emailRef} />
-          <Input placeholder="Password" type="password" ref={passwordRef} />
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link onClick={() => navigate("/register")}>CREATE A NEW ACCOUNT</Link>
+        <Title>Login</Title>
+        <Form onSubmit={handleSubmit}>
+          <Input type="email" placeholder="Email" ref={emailRef} required />
+          <Input type="password" placeholder="Password" ref={passwordRef} required />
+          {error && <Error>{error}</Error>}
           <ButtonWrapper>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? <Spinner size={20} /> : 'LOGIN'}
+            <Button disabled={loading} type="submit">
+              {loading ? <Spinner size={20} /> : 'Login'}
             </Button>
           </ButtonWrapper>
-
         </Form>
+        <Link href="#">Forgot Password?</Link>
       </Wrapper>
     </Container>
   );
-};
+}
 
 export default Login;
