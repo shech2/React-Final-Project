@@ -13,11 +13,12 @@ const Container = styled('div')({
   background: `linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
-    ), url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center`,
+    ), url("https://www.pixelstalk.net/wp-content/uploads/2016/06/Book-desktop-wallpaper-images-hd-wallpapers.jpg") center`,
   backgroundSize: 'cover',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+
 });
 
 const Wrapper = styled('div')({
@@ -97,8 +98,8 @@ const Login = () => {
       <Wrapper>
         <Title>SIGN IN</Title>
         <Form onSubmit={handleLogin}>
-          <Input placeholder="username" ref={emailRef} />
-          <Input placeholder="password" ref={passwordRef} />
+          <Input placeholder="Email" ref={emailRef} />
+          <Input placeholder="Password" type="password" ref={passwordRef} />
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
           <Link onClick={() => navigate("/register")}>CREATE A NEW ACCOUNT</Link>
           <Button type="submit" >LOGIN</Button>

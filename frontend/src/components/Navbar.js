@@ -119,7 +119,7 @@ const Navbar = () => {
                         <MenuItem onClick={signOutHandler}>SIGN OUT</MenuItem>
                         :
                         <MenuItem onClick={() => navigate("/login")} style={{ marginLeft: '20px' }}>SIGN IN</MenuItem>}
-                    {currentUser?.email ? <MenuItem>Welcome, {currentUser?.email}</MenuItem> :
+                    {currentUser?.email ? <MenuItem>Welcome , {currentUser?.email}</MenuItem> :
                         <MenuItem onClick={() => navigate("/register")}>REGISTER</MenuItem>}
                     <Link to="/cart">
                         <MenuItem>
