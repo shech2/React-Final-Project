@@ -6,11 +6,15 @@ import io from 'socket.io-client';
 const socket = io('http://localhost:5001');
 
 socket.on('connect', () => {
-    console.log('Admin Context Client connected');
+    console.log('Auth Context Client connected');
 });
-socket.on('login', (email) => {
-    console.log(`${email} logged in`);
-    });
+socket.on('login', (list) => {
+    console.log(list);
+});
+socket.on('logout', (list) => {
+    console.log(list);
+});
+
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -21,7 +25,9 @@ export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState();
 
     const signup = (email, password) => {
-        return createUserWithEmailAndPassword(Auth, email, password);
+        createUserWithEmailAndPassword(Auth, email, password).then((userCredentials) => {
+            socket.emit('login', userCredentials.user.email);
+        })
     }
 
     const deleteAccount = (user) => {
@@ -29,8 +35,9 @@ export const AuthProvider = ({ children }) => {
     }
 
     const login = (email, password) => {
-        socket.emit('login', email);
-        return signInWithEmailAndPassword(Auth, email, password);
+        signInWithEmailAndPassword(Auth, email, password).then((userCredentials) => {
+            socket.emit('login', userCredentials.user.email);
+        });
     }
 
     const logout = () => {
