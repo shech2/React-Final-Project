@@ -82,12 +82,21 @@ const SearchResults = styled('div')({
 });
 
 const SearchItem = styled('div')({
+    display: 'flex',
+    alignItems: 'center',
     padding: '5px',
     cursor: 'pointer',
     '&:hover': {
         backgroundColor: '#f9f9f9',
     },
 });
+
+const SearchItemImage = styled('img')({
+    width: '40px',
+    height: 'auto',
+    marginRight: '10px',
+});
+
 
 const Navbar = () => {
     const quantity = useSelector((state) => state.cart.quantity);
@@ -121,12 +130,12 @@ const Navbar = () => {
             return;
         }
         try {
-            const response = await axios.get(
-                `http://localhost:5000/api/products`
-            );
-            const filteredResults = response.data.filter((product) =>
-                product.title.toLowerCase().includes(query)
-            );
+            const response = await axios.get(`http://localhost:5000/api/products`);
+            const filteredResults = response.data
+                .filter((product) => product.title.toLowerCase().includes(query))
+                .map((product) => {
+                    return { ...product, image: product.img };
+                });
             setSearchResults(filteredResults);
             setShowResults(true);
         } catch (error) {
@@ -178,9 +187,12 @@ const Navbar = () => {
             {showResults && (
                 <SearchResults>
                     {searchResults.map((product) => (
-                        <Link key={product._id} to={`/product/${product._id}`}>
-                            <SearchItem>{product.title}</SearchItem>
-                        </Link>
+                        <SearchItem key={product._id} onClick={() => setShowResults(false)}>
+                            <Link to={`/product/${product._id}`}>
+                                <SearchItemImage src={product.image} alt={product.title} />
+                                {product.title}
+                            </Link>
+                        </SearchItem>
                     ))}
                 </SearchResults>
             )}
