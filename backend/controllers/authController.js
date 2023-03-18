@@ -40,4 +40,29 @@ const getStats = async (req, res) => {
     }
 };
 
-export { createUser, getUser, getStats, getAllUsers };
+  const deleteUser = async (req, res) => {
+    try {
+        await auth.findByIdAndDelete(req.params.id);
+        res.status(200).json("User has been deleted...");
+    } catch (error) {
+       res.status(500).json(error);
+    }
+};
+
+const updateUser = async (req, res) => {
+    try {
+        const updatedUser = await auth.findByIdAndUpdate(
+            req.params.id,
+            {
+                $set: req.body,
+            },
+            { new: true }
+        );
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
+
+export { createUser, getUser , getStats , getAllUsers , deleteUser , updateUser };

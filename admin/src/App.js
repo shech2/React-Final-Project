@@ -29,9 +29,6 @@ function App() {
           <Route path="/user/:userId" element={<User />} />
         </Routes>
         <Routes>
-          <Route path="/newUser" element={<NewUser />} />
-        </Routes>
-        <Routes>
           <Route path="/products" element={<ProductList />} />
         </Routes>
         <Routes>
