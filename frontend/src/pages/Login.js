@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { styled } from '@mui/material/styles';
-// import { login } from "../redux/apiCalls";
-// import { mobile } from "../responsive";
+import { CircularProgress } from '@mui/material'
 import { useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from 'react-router-dom';
-
 
 const Container = styled('div')({
   width: '100vw',
@@ -18,16 +16,12 @@ const Container = styled('div')({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-
 });
 
 const Wrapper = styled('div')({
   width: '25%',
   padding: '20px',
   backgroundColor: 'white',
-  // '@media(max-width: 768px)': {
-  //   width: '75%',
-  // },
 });
 
 const Title = styled('h1')({
@@ -47,7 +41,7 @@ const Input = styled('input')({
   padding: '10px',
 });
 
-const Button = styled('button')({
+const Button = styled('button')(({ theme }) => ({
   width: '40%',
   border: 'none',
   padding: '15px 20px',
@@ -59,7 +53,10 @@ const Button = styled('button')({
     color: 'green',
     cursor: 'not-allowed',
   },
-});
+  [theme.breakpoints.down('sm')]: {
+    width: '75%',
+  },
+}));
 
 const Link = styled('a')({
   margin: '5px 0px',
@@ -72,27 +69,40 @@ const Error = styled('span')({
   color: 'red',
 });
 
+const Spinner = styled(CircularProgress)({
+  color: 'white',
+});
+
+const ButtonWrapper = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '10px',
+});
+
 const Login = () => {
   const { login, currentUser } = useAuth();
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
 
-
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
-    try {
-      await login(emailRef.current.value, passwordRef.current.value).then((user) => {
-        navigate('/');
-      })
-    } catch (error) {
-      setError(error.message);
-    }
-
+    setIsLoading(true);
+    setTimeout(async () => {
+      try {
+        await login(emailRef.current.value, passwordRef.current.value).then((user) => {
+          navigate('/');
+        })
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    }, 1000);
   }
+
   return (
     <Container>
       <Wrapper>
@@ -102,7 +112,12 @@ const Login = () => {
           <Input placeholder="Password" type="password" ref={passwordRef} />
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
           <Link onClick={() => navigate("/register")}>CREATE A NEW ACCOUNT</Link>
-          <Button type="submit" >LOGIN</Button>
+          <ButtonWrapper>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? <Spinner size={20} /> : 'LOGIN'}
+            </Button>
+          </ButtonWrapper>
+
         </Form>
       </Wrapper>
     </Container>
