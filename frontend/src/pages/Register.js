@@ -73,6 +73,8 @@ const Register = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
 
   const handleShowPassword = () => {
@@ -93,6 +95,8 @@ const Register = () => {
           uid: res.user.uid,
           email: emailRef.current.value,
           username: username,
+          firstName: firstName,
+          lastName: lastName,
           isAdmin: false,
         }).then((res) => {
           navigate('/');
@@ -112,8 +116,8 @@ const Register = () => {
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form onSubmit={signupHandler}>
-          <Input label="Name" variant="outlined" margin="normal" required fullWidth autoFocus />
-          <Input label="Last Name" variant="outlined" margin="normal" required fullWidth />
+          <Input label="Name" variant="outlined" margin="normal" required value={firstName} onChange={(e) => setFirstName(e.target.value)} fullWidth autoFocus />
+          <Input label="Last Name" variant="outlined" margin="normal" required fullWidth value={lastName} onChange={(e) => setLastName(e.target.value)} />
           <Input label="Username" variant="outlined" margin="normal" required fullWidth value={username} onChange={(e) => setUsername(e.target.value)} />
           <Input label="Email" variant="outlined" margin="normal" required fullWidth inputRef={emailRef} />
           <Input label="Password" variant="outlined" margin="normal" required fullWidth type={showPassword ? 'text' : 'password'} inputRef={passwordRef} InputProps={{
