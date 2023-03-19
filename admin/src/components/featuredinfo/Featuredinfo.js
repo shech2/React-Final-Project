@@ -5,28 +5,23 @@ import { useEffect, useState } from "react";
 import { userRequest } from "../../requestMethods";
 
 export default function Featuredinfo() {
-    const [income, setIncome] = useState([]);
     const [lastMonthIncome, setLastMonthIncome] = useState([]);
     const [perc, setPerc] = useState([]);
 
-    useEffect(() => {
-        const getIncome = async () => {
-            try {
-                const res = await userRequest.get("orders/income");
-                setIncome(res.data);
-                setPerc((res.data[1].total * 100) / res.data[0].total - 100);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        getIncome();
-    }, []);
+
+
     // sales for last month
     useEffect(() => {
         const getLastMonthIncome = async () => {
+            var sum = 0;
             try {
                 const res = await userRequest.get("orders/income");
-                setLastMonthIncome(res.data);
+                for (let i = 0; i < res.data.length; i++) {
+                    // get last month sales
+                    sum += res.data[i].total;
+                }
+                setPerc((res.data[1].total * 100) / res.data[0].total - 100);
+                setLastMonthIncome(sum);
             } catch (err) {
                 console.log(err);
             }
@@ -41,8 +36,8 @@ export default function Featuredinfo() {
             <div className="featuredItem">
                 <span className="featuredTitle">Revenue</span>
                 <div className="featuredMoneyContainer">
-                    {income.length > 1 && income[1].total ? (
-                        <span className="featuredMoney">${income[1].total}</span>
+                    {lastMonthIncome ? (
+                        <span className="featuredMoney">${lastMonthIncome}</span>
                     ) : (
                         <span className="featuredMoney">N/A</span>
                     )}
@@ -59,8 +54,8 @@ export default function Featuredinfo() {
             <div className="featuredItem">
                 <span className="featuredTitle">Sales</span>
                 <div className="featuredMoneyContainer">
-                    {lastMonthIncome.length > 1 && lastMonthIncome[1].total ? (
-                        <span className="featuredMoney">${lastMonthIncome[1].total}</span>
+                    {lastMonthIncome ? (
+                        <span className="featuredMoney">${lastMonthIncome}</span>
                     ) : (
                         <span className="featuredMoney">N/A</span>
                     )}

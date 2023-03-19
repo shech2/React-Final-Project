@@ -19,7 +19,6 @@ export default function WidgetLg() {
                 res.data.map(async (order) => {
                     const user = await userRequest.get(`/users/${order.userId}`);
                     order.userId = user.data[0].username;
-                    console.log(order);
                     setOrders((prev) => [...prev, order]);
                     return order;
                 });
