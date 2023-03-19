@@ -17,12 +17,15 @@ import {
   getUserStart,
   getUserSuccess,
   getUserFailure,
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
 } from "./userRedux";
 
-import { 
+import {
   getOrdersStart,
   getOrdersSuccess,
   getOrdersFailure,
@@ -88,9 +91,19 @@ export const deleteUser = async (uid, dispatch) => {
   dispatch(deleteUserStart());
   try {
     const res = await userRequest.delete(`/users/${uid}`);
-    dispatch(deleteUserSuccess({uid} ));
+    dispatch(deleteUserSuccess({ uid }));
   } catch (err) {
     dispatch(deleteUserFailure());
+  }
+};
+
+export const updateUser = async (uid, user, dispatch) => {
+  dispatch(updateUserStart());
+  try {
+    const res = await userRequest.put(`/users/${uid}`, user);
+    dispatch(updateUserSuccess({ user }));
+  } catch (err) {
+    dispatch(updateUserFailure());
   }
 };
 

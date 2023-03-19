@@ -4,22 +4,22 @@ import { DeleteOutline } from "@material-ui/icons";
 import React from 'react'
 import { Link } from "react-router-dom";
 import { deleteUser, getUsers } from "../../redux/apiCalls";
-import { useDispatch , useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 
 export default function UserList() {
-    
+
 
     const dispatch = useDispatch();
-    const  users  = useSelector((state) => state.user.users);
+    const users = useSelector((state) => state.user.users);
 
     useEffect(() => {
         getUsers(dispatch);
     }, [dispatch]);
-        
+
     const handleDelete = (uid) => {
-        deleteUser(uid, dispatch);        
+        deleteUser(uid, dispatch);
     };
 
     const columns = [
@@ -28,7 +28,7 @@ export default function UserList() {
             field: 'user', headerName: 'User', width: 200, renderCell: (params) => {
                 return (
                     <div className="userListUser">
-                        <img className="userListImg " src={params.row.avatar}
+                        <img className="userListImg " src={params.row.img}
                             alt="" />
                         {params.row.username}
 
@@ -67,7 +67,7 @@ export default function UserList() {
                 rows={users}
                 disableSelectionOnClick
                 columns={columns}
-                getRowId = {(row) => row.uid}
+                getRowId={(row) => row.uid}
                 pageSize={8}
                 checkboxSelection
             />

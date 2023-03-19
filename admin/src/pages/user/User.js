@@ -1,4 +1,3 @@
-
 import {
     CalendarToday,
     MailOutline,
@@ -7,15 +6,77 @@ import {
 import "./user.css";
 import { useLocation } from "react-router";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import app from "../../firebase-config";
+import { updateUser } from "../../redux/apiCalls";
+import { useDispatch } from "react-redux";
+import { Publish } from "@material-ui/icons";
+
+
 
 
 export default function User() {
     const location = useLocation();
     const userId = location.pathname.split("/")[2];
-    
-    const user = useSelector(state => 
+    const [img, setImg] = useState(null);
+    const [file, setFile] = useState(null);
+    const dispatch = useDispatch();
+
+
+    const user = useSelector(state =>
         state.user.users.find(user => user.uid === userId)
     );
+
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        const fileName = new Date().getTime() + file.name;
+        const storage = getStorage(app);
+        const storageRef = ref(storage, "images/" + fileName);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        // Register three observers:
+        // 1. 'state_changed' observer, called any time the state changes
+        // 2. Error observer, called on failure
+        // 3. Completion observer, called on successful completion
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                // Observe state change events such as progress, pause, and resume
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                const progress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log("Upload is " + progress + "% done");
+                switch (snapshot.state) {
+                    case "paused":
+                        console.log("Upload is paused");
+                        break;
+                    case "running":
+                        console.log("Upload is running");
+                        break;
+                    default:
+                }
+            },
+            (error) => {
+                // Handle unsuccessful uploads
+            },
+            () => {
+                // Handle successful uploads on complete
+                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    const userNew = { ...user, img: downloadURL };
+                    updateUser(userId, userNew, dispatch).then(() => {
+                        setImg(downloadURL);
+                    })
+                });
+            }
+        );
+    };
+
+    useEffect(() => {
+        setImg(user.img);
+    }, [user]);
 
     return (
         <div className="user">
@@ -26,7 +87,7 @@ export default function User() {
                 <div className="userShow">
                     <div className="userShowTop">
                         <img
-                            src="https://play-lh.googleusercontent.com/tmASL-0Jg5bq3RKsneEFVCcAth0M7jFLI7alQQyKSEqrpvLuMfW4mfkw4iSkLCj9_zo"
+                            src={img}
                             alt=""
                             className="userShowImg"
                         />
@@ -58,29 +119,29 @@ export default function User() {
                             <div className="userUpdateItem">
                                 <label>Username</label>
                                 <input
-                                    name = "username"
+                                    name="username"
                                     type="text"
-                                    placeholder= ""
+                                    placeholder=""
                                     className="userUpdateInput"
-                                    value = {user.username}
+                                    value={user.username}
                                 />
                             </div>
                             <div className="userUpdateItem">
                                 <label>First Name</label>
                                 <input
-                                    name = "firstName"
+                                    name="firstName"
                                     type="text"
-                                    placeholder= ""
+                                    placeholder=""
                                     className="userUpdateInput"
-                                    value = {user.firstName}
+                                    value={user.firstName}
                                 />
                             </div>
                             <div className="userUpdateItem">
                                 <label>Last Name</label>
                                 <input
-                                    name = "lastName"
+                                    name="lastName"
                                     type="text"
-                                    placeholder= ""
+                                    placeholder=""
                                     className="userUpdateInput"
                                     value={user.lastName}
                                 />
@@ -88,13 +149,23 @@ export default function User() {
                             <div className="userUpdateItem">
                                 <label>Email</label>
                                 <input
-                                    name = "email"
+                                    name="email"
                                     type="text"
                                     placeholder=""
                                     className="userUpdateInput"
                                     value={user.email}
                                 />
                             </div>
+                        </div>
+                        <div className="productFormRight">
+                            <div className="productUpload">
+                                <img src={img} alt="" className="productUploadImg" />
+                                <label for="file">
+                                    <Publish />
+                                </label>
+                                <input type="file" id="file" style={{ display: "none" }} onChange={e => setFile(e.target.files[0])} />
+                            </div>
+                            <button onClick={handleClick} className="productButton">Update</button>
                         </div>
                     </form>
                 </div>

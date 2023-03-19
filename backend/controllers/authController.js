@@ -1,5 +1,5 @@
 import auth from "../models/auth.js";
-import {admin} from "../FirebaseAdmin/firebaseAdmin.js";
+import { admin } from "../FirebaseAdmin/firebaseAdmin.js";
 
 const createUser = async (req, res) => {
 
@@ -31,7 +31,7 @@ const getAllUsers = async (req, res) => {
 };
 
 
-  const deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
     try {
         const userId = req.params.uid;
         await admin.auth().deleteUser(userId);
@@ -41,24 +41,24 @@ const getAllUsers = async (req, res) => {
         }
         res.status(200).json("User has been deleted...");
     } catch (error) {
-       res.status(500).json(error);
+        res.status(500).json(error);
     }
 };
 
 const updateUser = async (req, res) => {
     try {
-        const updatedUser = await auth.findByIdAndUpdate(
-            req.params.id,
+        const userUpdated = await auth.findOneAndUpdate(
+            { uid: req.params.uid },
             {
                 $set: req.body,
             },
             { new: true }
         );
-        res.status(200).json(updatedUser);
+        res.status(200).json(userUpdated);
     } catch (err) {
         res.status(500).json(err);
     }
 };
 
 
-export { createUser, getUser, getAllUsers , deleteUser , updateUser };
+export { createUser, getUser, getAllUsers, deleteUser, updateUser };

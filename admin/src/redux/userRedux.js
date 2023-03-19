@@ -46,7 +46,7 @@ export const userSlice = createSlice({
         ,
         updateUserSuccess: (state, action) => {
             state.isFetching = false;
-            state.users[state.products.findIndex((item) => item.uid === action.payload.id)] = action.payload.product;
+            state.users[state.users.findIndex((item) => item.uid === action.payload.uid)] = action.payload;
         }
         ,
         updateUserFailure: (state) => {
