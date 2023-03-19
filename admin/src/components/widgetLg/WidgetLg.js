@@ -9,19 +9,29 @@ dayjs.extend(relativeTime);
 
 export default function WidgetLg() {
 
+    const [User, setUser] = useState([]);
     const [Orders, setOrders] = useState([]);
 
     useEffect(() => {
         const getOrders = async () => {
-          try {
-            const res = await userRequest.get('/orders');
-            setOrders(res.data);
-          } catch (err) {
-            console.log(err);
-          }
+            try {
+                const res = await userRequest.get('/orders');
+                // add to order array the nickname of the user form backend
+                const orders = res.data.map(async (order) => {
+                    const user = await userRequest.get(`/users/${order.userId}`);
+                    order.userId = user.data[0].username;
+                    console.log(order);
+                    setOrders((prev) => [...prev, order]);
+                    return order;
+                });
+            } catch (err) {
+                console.log(err);
+            }
         };
         getOrders();
-      }, []);
+    }, []);
+
+
 
 
     const Button = ({ type }) => {
@@ -41,12 +51,12 @@ export default function WidgetLg() {
                     <tr className="widgetLgTr" key={order._id} >
                         <td className="widgetLgUser">
                             <span className="widgetLgName">{order.userId}</span>
-                            </td>
-                            <td className="widgetLgDate">{dayjs(order.createdAt).fromNow()}</td>
-                            <td className="widgetLgAmount">{order.amount}</td>
-                            <td className="widgetLgStatus">
-                                <Button type={order.status} />
-                            </td>
+                        </td>
+                        <td className="widgetLgDate">{dayjs(order.createdAt).fromNow()}</td>
+                        <td className="widgetLgAmount">{order.amount}</td>
+                        <td className="widgetLgStatus">
+                            <Button type={order.status} />
+                        </td>
                     </tr>
                 ))}
             </table>
