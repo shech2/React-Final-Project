@@ -71,7 +71,8 @@ const Products = ({ cat, filters, sort }) => {
                 products.filter(item =>
                     Object.entries(filters).every(([key, value]) => {
                         if (key === 'Author' || key === 'topic') {
-                            return item[key].includes(value);
+                             return item[key].includes(value);
+                            
                         }
                         return true;
                     })
