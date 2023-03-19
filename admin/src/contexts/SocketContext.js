@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
 
@@ -9,14 +9,60 @@ export const useSocket = () => {
 }
 
 export const SocketProvider = ({ children }) => {
+    const [connectedUsers, setConnectedUsers] = useState([]);
     const socket = io('http://localhost:5001');
 
     socket.on('connect', () => {
         console.log('Socket Client connected');
     });
 
+    // save state of connected users in local storage
+    const saveState = (state) => {
+        try {
+            const serializedState = JSON.stringify(state);
+            localStorage.setItem('connectedUsers', serializedState);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    // get state of connected users from local storage
+    const loadState = () => {
+        try {
+            const serializedState = localStorage.getItem('connectedUsers');
+            if (serializedState === null) return undefined;
+            return JSON.parse(serializedState);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
+    }
+
+    // if state exists in local storage, set it to connectedUsers
+    useEffect(() => {
+        const state = loadState();
+        if (state) {
+            setConnectedUsers(state);
+        }
+    }, []);
+
+    // get connected users from server
+    useEffect(() => {
+        socket.on('login', (list) => {
+            saveState(list);
+            setConnectedUsers(list);
+        });
+        socket.on('logout', (list) => {
+            saveState(list);
+            setConnectedUsers(list);
+        });
+    }, [socket, saveState]);
+
+
+
     const value = {
-        socket
+        socket,
+        connectedUsers,
     }
 
     return (

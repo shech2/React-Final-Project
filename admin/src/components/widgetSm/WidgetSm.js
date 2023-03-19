@@ -8,8 +8,7 @@ import { useSocket } from "../../contexts/SocketContext";
 
 export default function WidgetSm() {
   const [users, setUsers] = useState([]);
-  const [connectedUsers, setConnectedUsers] = useState([]); // [
-  const { socket } = useSocket();
+  const { connectedUsers } = useSocket();
 
   useEffect(() => {
     const getUsers = async () => {
@@ -32,20 +31,6 @@ export default function WidgetSm() {
     };
     getUsers();
   }, []);
-
-  // if a user is connected , display a green dot in the widget otherwise a red dot
-  useEffect(() => {
-    socket.on('login', (list) => {
-      setConnectedUsers(list);
-    });
-  }, [socket, users]);
-
-  useEffect(() => {
-    socket.on('logout', (list) => {
-      setConnectedUsers(list);
-    });
-  }, [socket, users]);
-
 
 
   console.log('connectedUsers', connectedUsers)
