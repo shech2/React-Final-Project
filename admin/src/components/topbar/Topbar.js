@@ -6,7 +6,7 @@ export default function Topbar() {
         <div className="topbar">
             <div className="topbarWrapper">
                 <div className="topLeft">
-                    <span className="logo">Books</span>
+                    <span onClick={() => window.location.href = "http://localhost:3000/"} className="logo">Books Store</span>
                 </div>
             </div>
         </div>
