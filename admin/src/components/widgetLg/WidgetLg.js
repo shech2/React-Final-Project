@@ -17,7 +17,7 @@ export default function WidgetLg() {
             try {
                 const res = await userRequest.get('/orders');
                 // add to order array the nickname of the user form backend
-                const orders = res.data.map(async (order) => {
+                res.data.map(async (order) => {
                     const user = await userRequest.get(`/users/${order.userId}`);
                     order.userId = user.data[0].username;
                     console.log(order);
