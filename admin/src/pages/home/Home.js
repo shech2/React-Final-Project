@@ -3,14 +3,13 @@ import Featuredinfo from "../../components/featuredinfo/Featuredinfo"
 import WidgetLg from "../../components/widgetLg/WidgetLg"
 import WidgetSm from "../../components/widgetSm/WidgetSm"
 import "./home.css"
-import { userData } from "../../dummyData"
 import { useEffect } from "react"
 import { userRequest } from "../../requestMethods"
 import { useState } from "react"
 import { useMemo } from "react"
 
 export default function Home() {
-  const [userStats, setUserStats] = useState([]);
+  const [orderStats, setOrderStats] = useState([]);
 
   const MONTHS = useMemo(
     () => [
@@ -33,13 +32,12 @@ export default function Home() {
   useEffect(() => {
     const getStats = async () => {
       try {
-        const res = await userRequest.get("/users/stats");
-        res.data.map((item) =>
-          setUserStats((prev) => [
-            ...prev,
-            { name: MONTHS[item._id - 1], "Active User": item.total },
-          ])
-        );
+        const res = await userRequest.get("/orders/income");
+        const statData = res.data.map((item) => ({
+          name : MONTHS[item._id - 1],
+          "Total Amount" : item.total,
+      }));
+        setOrderStats(statData);
       } catch { }
     };
     getStats();
@@ -48,7 +46,7 @@ export default function Home() {
   return (
     <div className="home">
       <Featuredinfo />
-      <Chart data={userData} title="User Analytics" grid dataKey="Active User" />
+      <Chart data={orderStats} title="Order Analytics" grid dataKey="Total Amount" />
       <div className="homeWidgets">
         <WidgetSm />
         <WidgetLg />
