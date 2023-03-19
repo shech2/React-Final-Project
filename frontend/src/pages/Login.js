@@ -92,7 +92,7 @@ export default function Login() {
     try {
       setError('');
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value).then((user) => {
+      await login(emailRef.current.value, passwordRef.current.value).then(() => {
         navigate('/');
       });
     } catch (error) {

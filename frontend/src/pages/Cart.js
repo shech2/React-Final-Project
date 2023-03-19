@@ -10,7 +10,7 @@ import { useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { addProduct, removeProduct } from "../redux/cartRedux";
+import { addProduct, removeProduct, emptyCart } from "../redux/cartRedux";
 
 
 const KEY = process.env.REACT_APP_STRIPE;
@@ -202,7 +202,7 @@ const Cart = () => {
             <TopText>Shopping Bag ({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton>CHECKOUT NOW</TopButton>
+          <TopButton onClick={() => dispatch(emptyCart())}>CLEAR CART</TopButton>
         </Top>
         <Bottom>
           <Info>
