@@ -20,14 +20,14 @@ export const categories = [
     {
         id: 1,
         img: "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/36387/desktop-personal-computer-clipart-md.png",
-        title: "COMPUTERS",
-        cat: "Computers"
+        title: "Coockbooks",
+        cat: "Cooking"
     },
     {
         id: 2,
         img: "https://i.pinimg.com/564x/10/2f/6e/102f6e23b4950bbaaddefbe38a177301.jpg",
-        title: "Games & Activities",
-        cat: "Games & Activities"
+        title: "Literary Criticism",
+        cat: "Literary Criticism"
     },
     {
         id: 3,
@@ -38,8 +38,8 @@ export const categories = [
     {
         id: 4,
         img: "https://www.worldatlas.com/r/w1200/upload/38/4f/7a/shutterstock-87113380.jpg",
-        title: "Social Science",
-        cat: "Social Science"
+        title: "Science",
+        cat: "Science"
     },
     {
         id: 5,
