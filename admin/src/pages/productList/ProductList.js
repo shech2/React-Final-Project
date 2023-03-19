@@ -6,6 +6,7 @@ import { useDispatch , useSelector} from "react-redux";
 import { deleteProduct, getProducts } from "../../redux/apiCalls";
 import { useEffect } from "react";
 
+
 export default function ProductList() {
     const dispatch = useDispatch();
     const  products  = useSelector((state) => state.product.products);
@@ -18,6 +19,8 @@ export default function ProductList() {
         deleteProduct(id, dispatch);        
     };
 
+    
+
     const columns = [
         { field: "_id", headerName: "ID", width: 220 },
         {
@@ -27,7 +30,7 @@ export default function ProductList() {
             renderCell: (params) => {
                 return (
                     <div className="productListItem">
-                        <img className="productListImg" src={params.row.img} alt="" />
+                        <img className="productListImg" src={params.row.img} alt="" key={params.row.img} />
                         {params.row.title}
                     </div>
                 );
