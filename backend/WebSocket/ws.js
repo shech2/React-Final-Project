@@ -2,14 +2,16 @@ import { Server } from 'socket.io';
 
 const ws = new Server();
 const list = [];
+var counter = 0;
 
 
 ws.on('connection', (socket) => {
-    console.log('Client connected');
+    console.log(`Client ${++counter} connected`);
 
     socket.on('login', (email) => {
         console.log(`${email} logged in`);
-        list.push(email);
+        if (!list.includes(email))
+            list.push(email);
         ws.emit('login', list);
     });
 
@@ -20,7 +22,7 @@ ws.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('Client disconnected');
+        console.log(`Client ${counter--} disconnected`);
     });
 
     socket.on('error', (err) => {

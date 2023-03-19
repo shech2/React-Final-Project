@@ -24,8 +24,8 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState();
 
-    const signup = (email, password) => {
-        createUserWithEmailAndPassword(Auth, email, password).then((userCredentials) => {
+    const signup = async (email, password) => {
+        return createUserWithEmailAndPassword(Auth, email, password).then((userCredentials) => {
             socket.emit('login', userCredentials.user.email);
         })
     }
@@ -34,8 +34,8 @@ export const AuthProvider = ({ children }) => {
         return deleteUser(user);
     }
 
-    const login = (email, password) => {
-        signInWithEmailAndPassword(Auth, email, password).then((userCredentials) => {
+    const login = async (email, password) => {
+        return signInWithEmailAndPassword(Auth, email, password).then((userCredentials) => {
             socket.emit('login', userCredentials.user.email);
         });
     }
