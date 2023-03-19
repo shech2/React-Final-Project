@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -64,7 +64,7 @@ const Button = styled('button')({
 });
 
 const Register = () => {
-  const { signup } = useAuth();
+  const { signup, currentUser } = useAuth();
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef();
@@ -89,27 +89,26 @@ const Register = () => {
       return;
     }
     try {
-      await signup(emailRef.current.value, passwordRef.current.value).then((res) => {
-        console.log(res.user.uid);
-        axios.post('http://localhost:5000/api/users', {
-          uid: res.user.uid,
-          email: emailRef.current.value,
-          username: username,
-          firstName: firstName,
-          lastName: lastName,
-          isAdmin: false,
-        }).then((res) => {
-          if (res.status === 200)
-            navigate('/');
-        }).catch((err) => {
-          console.log(err);
-        });
-      });
-    } catch (error) {
-      console.log(error);
-      setError('Failed to create an account');
+      await signup(emailRef.current.value, passwordRef.current.value);
+    } catch (err) {
+      setError(err.message);
     }
   }
+
+  useEffect(() => {
+    axios.post('http://localhost:5000/api/users', {
+      uid: currentUser?.uid,
+      email: emailRef.current.value,
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      isAdmin: false,
+    }).then((res) => {
+      navigate('/');
+    }).catch((err) => {
+      setError(err.message);
+    });
+  }, [currentUser]);
 
 
   return (
