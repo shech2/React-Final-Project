@@ -43,6 +43,7 @@ const Button = styled('button')(({ theme }) => ({
 }));
 
 const CategoryItem = ({ item }) => {
+   
     return (
         <Container>
             <Link to={`/products/${item.cat}`}>

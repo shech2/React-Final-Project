@@ -2,38 +2,32 @@ export const sliderItems = [
     {
         id: 1,
         img: "https://media.istockphoto.com/id/1169699948/photo/open-vintage-book-isolated-on-a-white-background-image.jpg?s=612x612&w=0&k=20&c=yQCu9vBQp8sT5QsMlOOLP6N_zIbDeVS8IYpdrLFlVlQ=",
-        title: "Passover Sale",
-        desc: "Don't miss out on the Passover 2023 sale!",
+        title: "Books Store",
+        desc: "Explore the world of books",
         bg: "f5fafd",
     },
     {
         id: 2,
         img: "https://media.istockphoto.com/id/505865064/photo/high-books-stack-open-book-isolated-white-background-colorful-covers.jpg?s=612x612&w=0&k=20&c=F9v1__67BSuQNPtL__coWdjDaSolvLNUEGdXuUzzqHo=",
-        title: "Summer Sale",
-        desc: "Don't miss out on the Summer 2023 sale!",
+        title: "Books Store",
+        desc: "Enjoy a big variety of books",
         bg: "fcf1ed",
-    },
-    {
-        id: 3,
-        img: "https://www.cleanlink.com/resources/editorial/2022/28569-book-sstock-523462210.jpg",
-        title: "Holiday Sale",
-        desc: "Don't miss out on the Holiday 2023 sale!",
-        bg: "fbf0f4",
-    },
+    }
+
 ];
 
 export const categories = [
     {
         id: 1,
         img: "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/36387/desktop-personal-computer-clipart-md.png",
-        title: "Coockbooks",
-        cat: "Cooking"
+        title: "COMPUTERS",
+        cat: "Computers"
     },
     {
         id: 2,
         img: "https://i.pinimg.com/564x/10/2f/6e/102f6e23b4950bbaaddefbe38a177301.jpg",
-        title: "Literary Criticism",
-        cat: "Literary Criticism"
+        title: "Games & Activities",
+        cat: "Games & Activities"
     },
     {
         id: 3,
@@ -44,8 +38,8 @@ export const categories = [
     {
         id: 4,
         img: "https://www.worldatlas.com/r/w1200/upload/38/4f/7a/shutterstock-87113380.jpg",
-        title: "Science",
-        cat: "Science"
+        title: "Social Science",
+        cat: "Social Science"
     },
     {
         id: 5,

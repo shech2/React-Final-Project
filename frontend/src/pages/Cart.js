@@ -175,6 +175,10 @@ const Cart = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const makeRequest = async () => {
       try {
         const res = await userRequest.post("checkout/payment/", {

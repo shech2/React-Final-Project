@@ -18,6 +18,7 @@ const Homepage = () => {
             <Products />
             <Newsletter />
             <Footer />
+         
         </div>
     )
 }

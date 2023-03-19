@@ -71,9 +71,9 @@ const Slider = () => {
 
     const handleClick = (direction) => {
         if (direction === 'left') {
-            setSlideIndex((prev) => (prev > 0 ? prev - 1 : 2));
+            setSlideIndex((prev) => (prev > 0 ? prev - 1 : 1));
         } else {
-            setSlideIndex((prev) => (prev < 2 ? prev + 1 : 0));
+            setSlideIndex((prev) => (prev < 1 ? prev + 1 : 0));
         }
     };
 

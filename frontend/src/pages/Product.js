@@ -25,22 +25,32 @@ const Wrapper = styled(Box)({
 });
 
 const ImgContainer = styled(Box)({
-    flex: '1',
+    flex: '3',
+    padding: '0px 50px',
+
 });
 
 const Image = styled('img')({
-    width: '100%',
-    height: '90vh',
+    width: '50%', // reduce the width to 50%
+    height: '800px', // allow the height to adjust automatically
     objectFit: 'cover',
+    objectPosition: 'center',
+    margin: 'auto',
+    //display: 'block',
+
+
+
 });
 
 const InfoContainer = styled(Box)({
-    flex: '1',
+    flex: '2',
     padding: '0px 50px',
+    marginLeft: '-500px',
 });
 
 const Title = styled(Typography)({
     fontWeight: '200',
+
 });
 
 const Desc = styled(Typography)({
@@ -48,7 +58,7 @@ const Desc = styled(Typography)({
 });
 
 const Price = styled(Typography)({
-    fontSize: '40px',
+    fontSize: '30px',
     fontWeight: '100',
 });
 
@@ -72,6 +82,7 @@ const AmountContainer = styled(Box)({
     display: 'flex',
     alignItems: 'center',
     fontWeight: '700',
+    marginTop: '20px',
 });
 
 const Amount = styled(Box)({
@@ -92,6 +103,7 @@ const Button = styled(Box)({
     background: 'white',
     cursor: 'pointer',
     fontWeight: '500',
+    marginTop: '20px',
     '&:hover': {
         background: '#f8f4f4',
     }
@@ -119,6 +131,10 @@ const Product = () => {
         };
         getProduct();
     }, [id]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleQuantity = (type) => {
         if (type === "dec") {

@@ -9,6 +9,7 @@ import { Button } from '@mui/material';
 
 const Container = styled('div')({
     display: 'flex',
+
 });
 
 const Logo = styled('h1')({
@@ -93,7 +94,7 @@ const Footer = () => {
     return (
         <Container>
             <Left>
-                <Logo>Books</Logo>
+                <Logo>Books Store</Logo>
                 <Description>
                     <Description>
                         Online bookstore, here you can find all the books at excellent prices.
@@ -144,7 +145,7 @@ const Footer = () => {
                 </ContactItem>
                 <ContactItem>
                     <MailOutline style={{ marginRight: '10px' }} />
-                    Books@mail.com
+                    BooksStore@gmail.com
                 </ContactItem>
                 <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
             </Right>

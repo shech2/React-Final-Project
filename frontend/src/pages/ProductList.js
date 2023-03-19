@@ -49,7 +49,9 @@ const ProductList = () => {
     const [sort, setSort] = useState("newest");
     const [author, setAuthor] = useState([]);
     const [topic, setTopic] = useState([]);
-
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const handleFilters = (e) => {
         const value = e.target.value;
         // if the value is "Genre" or "Topic", then return all products

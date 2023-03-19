@@ -46,6 +46,7 @@ const Input = styled('input')({
 
 const Logo = styled('h1')({
     fontWeight: 'bold',
+    cursor: 'pointer',
 });
 
 const Right = styled('div')({
@@ -129,7 +130,7 @@ const Navbar = () => {
             document.removeEventListener("click", handleDocumentClick);
         };
     }, []);
-    
+
     useEffect(() => {
         const getUser = async () => {
             const user = await axios({
@@ -183,7 +184,7 @@ const Navbar = () => {
                     ) : null}
                 </Left>
                 <Center>
-                    <Logo onClick={() => navigate("/")}>Books</Logo>
+                    <Logo onClick={() => navigate("/")}>Books Store</Logo>
                     {searchResults.length > 0 && showResults && (
                         <SearchResults onClick={handleSearchContainerClick}>
                             {searchResults.map((result) => (
