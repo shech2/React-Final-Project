@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     const signup = async (email, password) => {
         return createUserWithEmailAndPassword(Auth, email, password).then((userCredentials) => {
             socket.emit('login', userCredentials.user.email);
-        })
+        });
     }
 
     const deleteAccount = (user) => {
