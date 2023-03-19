@@ -78,21 +78,21 @@ export const getUsers = async (dispatch) => {
   }
 };
 
-export const deleteUser = async (id, dispatch) => {
+export const deleteUser = async (uid, dispatch) => {
   dispatch(deleteUserStart());
   try {
-    const res = await publicRequest.delete(`/users/${id}`);
-    dispatch(deleteUserSuccess(id));
+    const res = await userRequest.delete(`/users/${uid}`);
+    dispatch(deleteUserSuccess({uid} ));
   } catch (err) {
     dispatch(deleteUserFailure());
   }
 };
 
-export const updateUser = async (id, user, dispatch) => {
+export const updateUser = async (uid, user, dispatch) => {
   dispatch(updateUserStart());
   try {
-    const res = await userRequest.put(`/users/${id}`, user);
-    dispatch(updateUserSuccess({ id: id, user }));
+    const res = await userRequest.put(`/users/${uid}`, user);
+    dispatch(updateUserSuccess({ uid: uid, user }));
   } catch (err) {
     dispatch(updateUserFailure());
   }

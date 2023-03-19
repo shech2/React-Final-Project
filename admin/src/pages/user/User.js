@@ -24,7 +24,7 @@ export default function User() {
     const dispatch = useDispatch();
 
     const user = useSelector(state => 
-        state.user.users.find(user => user._id === userId)
+        state.user.users.find(user => user.uid === userId)
     );
 
     const handleChange = (e) => {

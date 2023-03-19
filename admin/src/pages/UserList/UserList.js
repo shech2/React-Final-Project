@@ -18,12 +18,12 @@ export default function UserList() {
         getUsers(dispatch);
     }, [dispatch]);
         
-    const handleDelete = (id) => {
-        deleteUser(id, dispatch);        
+    const handleDelete = (uid) => {
+        deleteUser(uid, dispatch);        
     };
 
     const columns = [
-        { field: '_id', headerName: 'ID', width: 220 },
+        { field: 'uid', headerName: 'ID', width: 250 },
         {
             field: 'user', headerName: 'User', width: 200, renderCell: (params) => {
                 return (
@@ -39,14 +39,9 @@ export default function UserList() {
         },
         { field: 'email', headerName: 'Email', width: 200 },
         {
-            field: 'status',
-            headerName: 'Status',
-            width: 120,
-        },
-        {
-            field: 'transaction',
-            headerName: 'Transaction Volume',
-            width: 160,
+            field: 'isAdmin',
+            headerName: 'isAdmin',
+            width: 150,
         },
         {
             field: 'action',
@@ -55,10 +50,10 @@ export default function UserList() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/user/" + params.row._id} >
+                        <Link to={"/user/" + params.row.uid} >
                             <button className="userListEdit">Edit</button>
                         </Link>
-                        <DeleteOutline className="userListDelete" onClick={() => handleDelete(params.row._id)} />
+                        <DeleteOutline className="userListDelete" onClick={() => handleDelete(params.row.uid)} />
                     </>
                 )
             }
@@ -72,7 +67,7 @@ export default function UserList() {
                 rows={users}
                 disableSelectionOnClick
                 columns={columns}
-                getRowId = {(row) => row._id}
+                getRowId = {(row) => row.uid}
                 pageSize={8}
                 checkboxSelection
             />
