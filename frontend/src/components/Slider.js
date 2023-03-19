@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { sliderItems } from '../data';
-import { mobile } from '../responsive';
 
 const Container = styled('div')(({ theme }) => ({
     width: '100%',
@@ -10,7 +9,6 @@ const Container = styled('div')(({ theme }) => ({
     display: 'flex',
     position: 'relative',
     overflow: 'hidden',
-    // ...mobile({ display: 'none' }),
 }));
 
 const Arrow = styled('div')(({ theme, direction }) => ({
@@ -67,11 +65,6 @@ const Desc = styled('p')({
     letterSpacing: '3px',
 });
 
-const Button = styled('button')({
-    padding: '10px',
-    fontSize: '20px',
-    backgroundColor: 'transparent',
-});
 
 const Slider = () => {
     const [slideIndex, setSlideIndex] = useState(0);
@@ -96,7 +89,6 @@ const Slider = () => {
                         <InfoContainer>
                             <Title variant="h1">{item.title}</Title>
                             <Desc>{item.desc}</Desc>
-                            <Button variant="contained">SHOW NOW</Button>
                         </InfoContainer>
                     </Slide>
                 ))}

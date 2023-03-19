@@ -93,7 +93,7 @@ const ProductList = () => {
             <FilterContainer>
                 <Filter>
                     <FilterText>Filter Products:</FilterText>
-                    <Select name="author" onChange={handleFilters}>
+                    <Select name="Author" onChange={handleFilters}>
                         <Option disabled>
                             Authors
                         </Option>

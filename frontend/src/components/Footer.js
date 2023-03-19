@@ -5,6 +5,7 @@ import Twitter from '@mui/icons-material/Twitter';
 import Room from '@mui/icons-material/Room';
 import Phone from '@mui/icons-material/Phone';
 import MailOutline from '@mui/icons-material/MailOutline';
+import { Button } from '@mui/material';
 
 const Container = styled('div')({
     display: 'flex',
@@ -47,14 +48,17 @@ const Title = styled('h3')({
 const List = styled('ul')({
     margin: 0,
     padding: 0,
+    marginLeft: '-60px',
     listStyle: 'none',
     display: 'flex',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
+    gap: '10px',
 });
 
 const ListItem = styled('li')({
     width: '50%',
     marginBottom: '10px',
+    colorb: 'black',
 });
 
 const Left = styled('div')({
@@ -67,6 +71,7 @@ const Left = styled('div')({
 const Center = styled('div')({
     flex: 1,
     padding: '20px',
+
 });
 
 const Right = styled('div')({
@@ -97,27 +102,35 @@ const Footer = () => {
                     </Description>
                 </Description>
                 <SocialContainer>
-                    <SocialIcon color="3B5999">
-                        <Facebook />
-                    </SocialIcon>
-                    <SocialIcon color="E4405F">
-                        <Instagram />
-                    </SocialIcon>
-                    <SocialIcon color="55ACEE">
-                        <Twitter />
-                    </SocialIcon>
+                    <a href="https://www.facebook.com">
+                        <SocialIcon color="3B5999">
+                            <Facebook />
+                        </SocialIcon>
+                    </a>
+                    <a href="https://www.instagram.com">
+                        <SocialIcon color="E4405F">
+                            <Instagram />
+                        </SocialIcon>
+                    </a>
+                    <a href="https://twitter.com">
+                        <SocialIcon color="55ACEE">
+                            <Twitter />
+                        </SocialIcon>
+                    </a>
                 </SocialContainer>
+
             </Left>
             <Center>
                 <Title>Useful Links</Title>
                 <List>
-                    <ListItem>Home</ListItem>
-                    <ListItem>Cart</ListItem>
-                    <ListItem>Home</ListItem>
-                    <ListItem>Cart</ListItem>
-                    <ListItem>Home</ListItem>
-                    <ListItem>Cart</ListItem>
+                    <Button href="/">
+                        <ListItem sx={{ color: 'black ' }}>Home</ListItem>
+                    </Button>
+                    <Button href="/cart">
+                        <ListItem sx={{ color: 'black ' }}>Cart</ListItem>
+                    </Button>
                 </List>
+
             </Center>
             <Right>
                 <Title>Contact</Title>
