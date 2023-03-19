@@ -204,7 +204,6 @@ const Cart = () => {
           <TopButton onClick={() => history("/")}>CONTINUE SHOPPING</TopButton>
           <TopTexts>
             <TopText>Shopping Bag ({cart.quantity})</TopText>
-            <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           <TopButton onClick={() => dispatch(emptyCart())}>CLEAR CART</TopButton>
         </Top>
