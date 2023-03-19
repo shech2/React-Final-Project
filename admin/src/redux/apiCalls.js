@@ -17,16 +17,22 @@ import {
   getUserStart,
   getUserSuccess,
   getUserFailure,
-  createUserStart,
-  createUserSuccess,
-  createUserFailure,
-  updateUserStart,
-  updateUserSuccess,
-  updateUserFailure,
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
 } from "./userRedux";
+
+import { 
+  getOrdersStart,
+  getOrdersSuccess,
+  getOrdersFailure,
+  deleteOrdersFailure,
+  deleteOrdersStart,
+  deleteOrdersSuccess,
+  updateOrdersStart,
+  updateOrdersSuccess,
+  updateOrdersFailure,
+} from "./orderRedux";
 
 
 export const getProducts = async (dispatch) => {
@@ -88,22 +94,33 @@ export const deleteUser = async (uid, dispatch) => {
   }
 };
 
-export const updateUser = async (uid, user, dispatch) => {
-  dispatch(updateUserStart());
+export const getOrders = async (dispatch) => {
+  dispatch(getOrdersStart());
   try {
-    const res = await userRequest.put(`/users/${uid}`, user);
-    dispatch(updateUserSuccess({ uid: uid, user }));
+    const res = await userRequest.get("/orders");
+    dispatch(getOrdersSuccess(res.data));
   } catch (err) {
-    dispatch(updateUserFailure());
+    dispatch(getOrdersFailure());
   }
 };
 
-export const addUser = async (user, dispatch) => {
-  dispatch(createUserStart());
+export const deleteOrder = async (id, dispatch) => {
+  dispatch(deleteOrdersStart());
   try {
-    const res = await userRequest.post(`/users`, user);
-    dispatch(createUserSuccess(res.data));
+    const res = await userRequest.delete(`/orders/${id}`);
+    dispatch(deleteOrdersSuccess(id));
   } catch (err) {
-    dispatch(createUserFailure());
+    dispatch(deleteOrdersFailure());
+  }
+}
+
+export const updateOrder = async (id, order, dispatch) => {
+  dispatch(updateOrdersStart());
+  try {
+    const res = await userRequest.put(`/orders/${id}`, order);
+    dispatch(updateOrdersSuccess({ id: id, order }));
+  } catch (err) {
+    dispatch(updateOrdersFailure());
   }
 };
+

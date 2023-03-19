@@ -7,10 +7,10 @@ import Home from "./pages/home/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./pages/UserList/UserList";
 import User from "./pages/user/User";
-import NewUser from "./pages/newUser/NewUser";
 import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
+import OrderList from "./pages/TransactionList/TransactionList";
 
 function App() {
 
@@ -36,6 +36,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/newproduct" element={<NewProduct />} />
+        </Routes>
+        <Routes>
+          <Route path="/transactions" element={<OrderList />} />
         </Routes>
       </div>
     </Router>
