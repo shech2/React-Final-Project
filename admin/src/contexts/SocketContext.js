@@ -14,12 +14,6 @@ export const SocketProvider = ({ children }) => {
     socket.on('connect', () => {
         console.log('Socket Client connected');
     });
-    socket.on('login', (list) => {
-        console.log(list);
-    });
-    socket.on('logout', (list) => {
-        console.log(list);
-    });
 
     const value = {
         socket

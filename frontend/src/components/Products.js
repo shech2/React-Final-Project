@@ -21,7 +21,7 @@ const Products = ({ cat, filters, sort }) => {
 
     useEffect(() => {
         const getBooks = async () => {
-            axios.get(`https://www.googleapis.com/books/v1/volumes?q=computers&key=${API_KEY}&maxResults=40`)
+            axios.get(`https://www.googleapis.com/books/v1/volumes?q=flower&filter=paid-ebooks&key=${API_KEY}&maxResults=40`)
                 .then(response => {
                     setBooks(books);
                     const booksUpdated = response.data.items;
