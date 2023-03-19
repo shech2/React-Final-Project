@@ -9,7 +9,6 @@ dayjs.extend(relativeTime);
 
 export default function WidgetLg() {
 
-    const [User, setUser] = useState([]);
     const [Orders, setOrders] = useState([]);
 
     useEffect(() => {
