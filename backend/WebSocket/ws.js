@@ -1,22 +1,28 @@
 import { Server } from 'socket.io';
 
 const ws = new Server();
+const list = [];
+var counter = 0;
+
 
 ws.on('connection', (socket) => {
-    console.log('Client connected');
+    console.log(`Client ${++counter} connected`);
 
     socket.on('login', (email) => {
         console.log(`${email} logged in`);
-        ws.emit('login', email);
+        if (!list.includes(email))
+            list.push(email);
+        ws.emit('login', list);
     });
 
     socket.on('logout', (email) => {
         console.log(`${email} logged out`);
-        ws.emit('logout', email);
+        list.splice(list.indexOf(email), 1);
+        ws.emit('logout', list);
     });
 
     socket.on('disconnect', () => {
-        console.log('Client disconnected');
+        console.log(`Client ${counter--} disconnected`);
     });
 
     socket.on('error', (err) => {

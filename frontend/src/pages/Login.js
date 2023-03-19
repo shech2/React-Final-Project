@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { styled } from '@mui/material/styles';
 import { CircularProgress } from '@mui/material'
 import { useRef } from "react";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Container = styled('div')({
@@ -79,30 +79,28 @@ const ButtonWrapper = styled('div')({
   marginTop: '10px',
 });
 
-const Login = () => {
+export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       setError('');
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      setTimeout(() => {
-        setLoading(false);
+      await login(emailRef.current.value, passwordRef.current.value).then((user) => {
         navigate('/');
-      }, 1000);
-    } catch {
-      setError('Failed to log in');
+      });
+    } catch (error) {
+      setError(error.message);
       setLoading(false);
     }
-  }
+  };
+
 
   return (
     <Container>
@@ -123,5 +121,3 @@ const Login = () => {
     </Container>
   );
 }
-
-export default Login;
