@@ -145,10 +145,8 @@ const Register = () => {
       isAdmin: false,
     }).then((res) => {
       navigate('/');
-    }).catch((err) => {
-      setError(err.message);
-    });
-  }, [currentUser && file]);
+    })
+  }, [file]);
 
 
 
@@ -185,12 +183,16 @@ const Register = () => {
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          {loading ? (
+          {!file ? (
             <Button fullWidth variant="contained" disabled>
-              Creating...
+              Please choose an image
+            </Button>
+          ) : loading ? (
+            <Button fullWidth variant="contained" disabled>
+              Loading...
             </Button>
           ) : (
-            <Button type="submit" fullWidth variant="contained" color="primary">
+            <Button fullWidth variant="contained" type="submit">
               CREATE
             </Button>
           )}
