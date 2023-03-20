@@ -29,6 +29,9 @@ export default function WidgetLg() {
         getOrders();
     }, []);
 
+    // slice the array to show only 5 orders
+    const slice = Orders.slice(0, 5);
+
 
 
 
@@ -45,7 +48,7 @@ export default function WidgetLg() {
                     <th className="widgetLgTh">Amount</th>
                     <th className="widgetLgTh">Status</th>
                 </tr>
-                {Orders.map((order) => (
+                {slice.map((order) => (
                     <tr className="widgetLgTr" key={order._id} >
                         <td className="widgetLgUser">
                             <span className="widgetLgName">{order.userId}</span>
