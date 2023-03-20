@@ -148,7 +148,7 @@ const Register = () => {
     }).catch((err) => {
       setError(err.message);
     });
-  }, [currentUser && file ? currentUser.uid : '']);
+  }, [currentUser && file]);
 
 
 
@@ -179,7 +179,7 @@ const Register = () => {
               </InputAdornment>
             ),
           }} />
-          <Agreement>choose an Image (optional)</Agreement>
+          <Agreement>choose an Image (requried)</Agreement>
           <Input type="file" id="file" onChange={(e) => setFile(e.target.files[0])} />
           <Agreement>
             By creating an account, I consent to the processing of my personal
