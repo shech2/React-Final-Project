@@ -7,6 +7,19 @@ import { userRequest } from "../../requestMethods";
 export default function Featuredinfo() {
     const [lastMonthIncome, setLastMonthIncome] = useState([]);
     const [perc, setPerc] = useState([]);
+    const [cost, setCost] = useState(600);
+
+
+    // update cost
+    useEffect(() => {
+        try {
+            setCost(600);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }, [cost]);
+
 
 
 
@@ -37,7 +50,7 @@ export default function Featuredinfo() {
                 <span className="featuredTitle">Revenue</span>
                 <div className="featuredMoneyContainer">
                     {lastMonthIncome ? (
-                        <span className="featuredMoney">${lastMonthIncome}</span>
+                        <span className="featuredMoney">${lastMonthIncome - cost}</span>
                     ) : (
                         <span className="featuredMoney">N/A</span>
                     )}
@@ -72,7 +85,7 @@ export default function Featuredinfo() {
             <div className="featuredItem">
                 <span className="featuredTitle">Cost</span>
                 <div className="featuredMoneyContainer">
-                    <span className="featuredMoney">$0</span>
+                    <span className="featuredMoney">${cost}</span>
                     <span className="featuredMoneyRate">0 <ArrowUpward /></span>
 
                     /</div>
