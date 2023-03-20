@@ -29,7 +29,7 @@ const Info = styled('div')(({ theme }) => ({
 }));
 
 const Title = styled('h1')(({ theme }) => ({
-    color: 'black',
+    color: 'white',
     marginBottom: '20px',
 }));
 
@@ -43,7 +43,7 @@ const Button = styled('button')(({ theme }) => ({
 }));
 
 const CategoryItem = ({ item }) => {
-   
+
     return (
         <Container>
             <Link to={`/products/${item.cat}`}>
