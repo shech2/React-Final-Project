@@ -19,8 +19,8 @@ export const sliderItems = [
 export const categories = [
     {
         id: 1,
-        img: "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/36387/desktop-personal-computer-clipart-md.png",
-        title: "Coockbooks",
+        img: "https://freedesignfile.com/upload/2019/11/Professionals-cook-vector.jpg",
+        title: "Cookbooks",
         cat: "Cooking"
     },
     {
@@ -31,9 +31,9 @@ export const categories = [
     },
     {
         id: 3,
-        img: "https://img.freepik.com/premium-photo/pretty-rainbow-heart-illustration-with-isolated-background_742252-4086.jpg?w=360",
-        title: "Love",
-        cat: "Love"
+        img: "https://st3.depositphotos.com/10796538/18884/i/600/depositphotos_188843432-stock-photo-law-justice-concept-law-symbols.jpg",
+        title: "Law",
+        cat: "Law"
     },
     {
         id: 4,

@@ -53,10 +53,7 @@ export default function Sidebar() {
                             Transactions
                         </li>
                         </Link>
-                        <li className="sidebarListItem">
-                            <BarChart className="sidebarIcon" />
-                            Reports
-                        </li>
+                        
                     </ul>
                 </div>
                 </div>
