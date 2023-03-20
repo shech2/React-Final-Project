@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Search, ShoppingCartOutlined } from '@mui/icons-material';
-import { Badge } from '@mui/material';
+import { Avatar, Badge } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -124,6 +124,7 @@ const Navbar = () => {
     };
 
 
+
     useEffect(() => {
         document.addEventListener("click", handleDocumentClick);
         return () => {
@@ -141,6 +142,7 @@ const Navbar = () => {
         };
         getUser();
     }, [currentUser]);
+
 
     const signOutHandler = () => {
         logout();
@@ -208,7 +210,10 @@ const Navbar = () => {
                         </MenuItem>
                     )}
                     {currentUser?.email ? (
-                        <MenuItem>Welcome , {currentUser?.email}</MenuItem>
+                        <>
+                            <MenuItem>Welcome , {currentUser?.email}</MenuItem>
+                            <Avatar src={user?.img}></Avatar>
+                        </>
                     ) : (
                         <MenuItem onClick={() => navigate("/register")}>REGISTER</MenuItem>
                     )}

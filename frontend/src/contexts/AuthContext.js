@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateEmail, sendPasswordResetEmail, deleteUser } from "firebase/auth";
 import { Auth } from '../firebase-config';
 import io from 'socket.io-client';
+import { userRequest } from '../requestMethods.js';
 
 const socket = io('http://localhost:5001');
 
@@ -23,6 +24,19 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState();
+    const [userFromDB, setUserFromDB] = useState([]);
+
+    useEffect(() => {
+        const getUserFromDB = async () => {
+            try {
+                const res = await userRequest.get(`users/${currentUser.uid}`);
+                setUserFromDB(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getUserFromDB();
+    }, [currentUser]);
 
     const signup = async (email, password) => {
         return createUserWithEmailAndPassword(Auth, email, password).then((userCredentials) => {
@@ -65,6 +79,7 @@ export const AuthProvider = ({ children }) => {
 
     const value = {
         currentUser,
+        userFromDB,
         signup,
         login,
         logout,
