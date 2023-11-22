@@ -28,7 +28,7 @@ const Products = ({ cat, filters, sort }) => {
                     console.log(booksUpdated);
                     booksUpdated.map(book => {
                         return (
-                            axios.post('http://localhost:5000/api/products/', {
+                            axios.post('https://react-final-project-backend-lmqr2u4ms-shech2s-projects.vercel.app/api/products/', {
                                 title: book.volumeInfo.title,
                                 desc: book.volumeInfo.description,
                                 img: book.volumeInfo.imageLinks.thumbnail,
@@ -54,8 +54,8 @@ const Products = ({ cat, filters, sort }) => {
             try {
                 const res = await axios.get(
                     cat
-                        ? `http://localhost:5000/api/products?category=${cat}`
-                        : "http://localhost:5000/api/products"
+                        ? `https://react-final-project-backend-lmqr2u4ms-shech2s-projects.vercel.app/api/products?category=${cat}`
+                        : "https://react-final-project-backend-lmqr2u4ms-shech2s-projects.vercel.app/api/products"
                 );
                 setProducts(res.data);
             } catch (err) {
@@ -71,8 +71,8 @@ const Products = ({ cat, filters, sort }) => {
                 products.filter(item =>
                     Object.entries(filters).every(([key, value]) => {
                         if (key === 'Author' || key === 'topic') {
-                             return item[key].includes(value);
-                            
+                            return item[key].includes(value);
+
                         }
                         return true;
                     })
