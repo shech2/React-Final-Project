@@ -16,7 +16,7 @@ dotenv.config();
 const server = http.createServer(app);
 
 server.listen(5002, () => {
-    console.log("Websocket server is running!\n" + "on port: " + 5001 + "\n");
+    console.log("Websocket server is running!\n" + "on port: " + 5002 + "\n");
 });
 
 ws.attach(server, {
