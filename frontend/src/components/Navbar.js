@@ -180,7 +180,7 @@ const Navbar = () => {
                         <Search style={{ color: "gray", fontSize: 16 }} />
                     </SearchContainer>
                     {currentUser?.email && user?.isAdmin ? (
-                        <MenuItem onClick={() => (window.location.href = "http://localhost:3001/")}>
+                        <MenuItem onClick={() => (window.location.href = "https://react-final-project-admin.vercel.app/")}>
                             ADMIN Panel
                         </MenuItem>
                     ) : null}
