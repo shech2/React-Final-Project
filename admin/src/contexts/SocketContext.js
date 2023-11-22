@@ -10,7 +10,7 @@ export const useSocket = () => {
 
 export const SocketProvider = ({ children }) => {
     const [connectedUsers, setConnectedUsers] = useState([]);
-    const socket = io('http://localhost:5001');
+    const socket = io('https://react-final-project-seven-wine.vercel.app:5001');
 
     socket.on('connect', () => {
         console.log('Socket Client connected');

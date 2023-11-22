@@ -4,7 +4,7 @@ import { Auth } from '../firebase-config';
 import io from 'socket.io-client';
 import { userRequest } from '../requestMethods.js';
 
-const socket = io('http://localhost:5001');
+const socket = io('https://react-final-project-seven-wine.vercel.app:5001');
 
 socket.on('connect', () => {
     console.log('Auth Context Client connected');
