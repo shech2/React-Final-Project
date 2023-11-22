@@ -136,7 +136,7 @@ const Navbar = () => {
         const getUser = async () => {
             const user = await axios({
                 method: "GET",
-                url: "http://localhost:5000/api/users/" + currentUser?.uid,
+                url: "https://react-final-project-seven-wine.vercel.app/api/users/" + currentUser?.uid,
             });
             setUser(user.data[0]);
         };
@@ -157,7 +157,7 @@ const Navbar = () => {
             return;
         }
         try {
-            const response = await axios.get(`http://localhost:5000/api/products`);
+            const response = await axios.get(`https://react-final-project-seven-wine.vercel.app/api/products`);
             const filteredResults = response.data
                 .filter((product) => product.title.toLowerCase().includes(query))
                 .map((product) => {
@@ -180,7 +180,7 @@ const Navbar = () => {
                         <Search style={{ color: "gray", fontSize: 16 }} />
                     </SearchContainer>
                     {currentUser?.email && user?.isAdmin ? (
-                        <MenuItem onClick={() => (window.location.href = "http://localhost:3001/")}>
+                        <MenuItem onClick={() => (window.location.href = "https://react-final-project-admin.vercel.app/")}>
                             ADMIN Panel
                         </MenuItem>
                     ) : null}
