@@ -7,7 +7,7 @@ export default function Topbar() {
         <div className="topbar">
             <div className="topbarWrapper">
                 <div className="topLeft">
-                    <span onClick={() => window.location.href = "https://react-final-project-seven-wine.vercel.app/"} className="logo">Books Store</span>
+                    <span onClick={() => window.location.href = "http://localhost:3000/"} className="logo">Books Store</span>
                 </div>
             </div>
         </div>
