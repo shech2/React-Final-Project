@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://react-final-project-backend.vercel.app/api';
+const BASE_URL = 'https://ec2-18-195-148-39.eu-central-1.compute.amazonaws.com/api';
 const TOKEN = process.env.REACT_APP_STRIPE_SECRET;
 
 export const publicRequest = axios.create({

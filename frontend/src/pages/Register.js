@@ -135,7 +135,7 @@ const Register = () => {
   }
 
   useEffect(() => {
-    axios.post('https://react-final-project-backend.vercel.app/api/users', {
+    axios.post('https://ec2-18-195-148-39.eu-central-1.compute.amazonaws.com/api/users', {
       uid: currentUser?.uid,
       email: emailRef.current.value,
       img: file,

@@ -76,7 +76,7 @@ const Product = ({ item }) => {
     useEffect(() => {
         const getProduct = async () => {
             try {
-                const res = await axios.get(`https://react-final-project-backend.vercel.app/api/products/find/${item._id}`);
+                const res = await axios.get(`https://ec2-18-195-148-39.eu-central-1.compute.amazonaws.com/api/products/find/${item._id}`);
                 setProduct(res.data);
             } catch (err) {
                 console.log(err);

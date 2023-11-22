@@ -28,7 +28,7 @@ const Products = ({ cat, filters, sort }) => {
                     console.log(booksUpdated);
                     booksUpdated.map(book => {
                         return (
-                            axios.post('https://react-final-project-backend.vercel.app/api/products/', {
+                            axios.post('https://ec2-18-195-148-39.eu-central-1.compute.amazonaws.com/api/products/', {
                                 title: book.volumeInfo.title,
                                 desc: book.volumeInfo.description,
                                 img: book.volumeInfo.imageLinks.thumbnail,
@@ -54,8 +54,8 @@ const Products = ({ cat, filters, sort }) => {
             try {
                 const res = await axios.get(
                     cat
-                        ? `https://react-final-project-backend.vercel.app/api/products?category=${cat}`
-                        : "https://react-final-project-backend.vercel.app/api/products"
+                        ? `https://ec2-18-195-148-39.eu-central-1.compute.amazonaws.com/api/products?category=${cat}`
+                        : "https://ec2-18-195-148-39.eu-central-1.compute.amazonaws.com/api/products"
                 );
                 setProducts(res.data);
             } catch (err) {

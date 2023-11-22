@@ -136,7 +136,7 @@ const Navbar = () => {
         const getUser = async () => {
             const user = await axios({
                 method: "GET",
-                url: "https://react-final-project-backend.vercel.app/api/users/" + currentUser?.uid,
+                url: "https://ec2-18-195-148-39.eu-central-1.compute.amazonaws.com/api/users/" + currentUser?.uid,
             });
             setUser(user.data[0]);
         };
@@ -157,7 +157,7 @@ const Navbar = () => {
             return;
         }
         try {
-            const response = await axios.get(`https://react-final-project-backend.vercel.app/api/products`);
+            const response = await axios.get(`https://ec2-18-195-148-39.eu-central-1.compute.amazonaws.com/api/products`);
             const filteredResults = response.data
                 .filter((product) => product.title.toLowerCase().includes(query))
                 .map((product) => {
