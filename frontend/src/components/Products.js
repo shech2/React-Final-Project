@@ -28,7 +28,7 @@ const Products = ({ cat, filters, sort }) => {
                     console.log(booksUpdated);
                     booksUpdated.map(book => {
                         return (
-                            axios.post('http://18.195.148.39:5000/api/products/', {
+                            axios.post('https://18.195.148.39:5000/api/products/', {
                                 title: book.volumeInfo.title,
                                 desc: book.volumeInfo.description,
                                 img: book.volumeInfo.imageLinks.thumbnail,
@@ -54,8 +54,8 @@ const Products = ({ cat, filters, sort }) => {
             try {
                 const res = await axios.get(
                     cat
-                        ? `http://18.195.148.39:5000/api/products?category=${cat}`
-                        : "http://18.195.148.39:5000/api/products"
+                        ? `https://18.195.148.39:5000/api/products?category=${cat}`
+                        : "https://18.195.148.39:5000/api/products"
                 );
                 setProducts(res.data);
             } catch (err) {

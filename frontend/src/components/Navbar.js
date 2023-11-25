@@ -136,7 +136,7 @@ const Navbar = () => {
         const getUser = async () => {
             const user = await axios({
                 method: "GET",
-                url: "http://18.195.148.39:5000/api/users/" + currentUser?.uid,
+                url: "https://18.195.148.39:5000/api/users/" + currentUser?.uid,
             });
             setUser(user.data[0]);
         };
@@ -157,7 +157,7 @@ const Navbar = () => {
             return;
         }
         try {
-            const response = await axios.get(`http://18.195.148.39:5000/api/products`);
+            const response = await axios.get(`https://18.195.148.39:5000/api/products`);
             const filteredResults = response.data
                 .filter((product) => product.title.toLowerCase().includes(query))
                 .map((product) => {
