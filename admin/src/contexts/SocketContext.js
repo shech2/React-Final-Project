@@ -10,7 +10,7 @@ export const useSocket = () => {
 
 export const SocketProvider = ({ children }) => {
     const [connectedUsers, setConnectedUsers] = useState([]);
-    const socket = io('http://18.195.148.39:5001');
+    const socket = io('https://18.195.148.39:5001');
 
     socket.on('connect', () => {
         console.log('Socket Client connected');

@@ -9,13 +9,12 @@ import stripeRoute from "./routes/stripe.js";
 import usersRoute from "./routes/auth.js";
 import cors from "cors";
 import ws from './WebSocket/ws.js';
-import http from 'http';
 import https from 'https';
 import fs from 'fs';
 
 dotenv.config();
 
-const server = http.createServer(app);
+const server = https.createServer(app);
 
 server.listen(5001, () => {
     console.log("Websocket server is running!\n" + "on port: " + 5001 + "\n");
