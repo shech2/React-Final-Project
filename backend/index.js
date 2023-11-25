@@ -14,11 +14,12 @@ import fs from 'fs';
 
 dotenv.config();
 
-const server = https.createServer(app);
-
-server.listen(5001, () => {
-    console.log("Websocket server is running!\n" + "on port: " + 5001 + "\n");
-});
+const server = https.createServer({
+    key: fs.readFileSync('./certs/key.pem'),
+    cert: fs.readFileSync('./certs/cert.pem')
+}, app).listen(5001, () => {
+    console.log("Socket server is running!\n" + "on port: " + 5001 + "\n");
+})
 
 ws.attach(server, {
     cors: {
