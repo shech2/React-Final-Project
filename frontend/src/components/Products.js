@@ -19,34 +19,34 @@ const Products = ({ cat, filters, sort }) => {
     const API_KEY = process.env.REACT_APP_GOOGLE_API;
 
 
-    useEffect(() => {
-        const getBooks = async () => {
-            axios.get(`https://www.googleapis.com/books/v1/volumes?q=flower&filter=paid-ebooks&key=${API_KEY}&maxResults=40`)
-                .then(response => {
-                    setBooks(books);
-                    const booksUpdated = response.data.items;
-                    console.log(booksUpdated);
-                    booksUpdated.map(book => {
-                        return (
-                            axios.post('https://3.64.196.53/api/products/', {
-                                title: book.volumeInfo.title,
-                                desc: book.volumeInfo.description ? book.volumeInfo.description : "No description available",
-                                img: book.volumeInfo.imageLinks.thumbnail,
-                                categories: book.volumeInfo.categories,
-                                Author: book.volumeInfo.authors,
-                                topic: book.volumeInfo.subtitle,
-                                price: Math.floor(Math.random() * 100) + 1,
-                                inStock: true,
-                            })
-                        )
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        };
-        getBooks();
-    }, [API_KEY]);
+    // useEffect(() => {
+    //     const getBooks = async () => {
+    //         axios.get(`https://www.googleapis.com/books/v1/volumes?q=flower&filter=paid-ebooks&key=${API_KEY}&maxResults=40`)
+    //             .then(response => {
+    //                 setBooks(books);
+    //                 const booksUpdated = response.data.items;
+    //                 console.log(booksUpdated);
+    //                 booksUpdated.map(book => {
+    //                     return (
+    //                         axios.post('https://3.64.196.53/api/products/', {
+    //                             title: book.volumeInfo.title,
+    //                             desc: book.volumeInfo.description,
+    //                             img: book.volumeInfo.imageLinks.thumbnail,
+    //                             categories: book.volumeInfo.categories,
+    //                             Author: book.volumeInfo.authors,
+    //                             topic: book.volumeInfo.subtitle,
+    //                             price: Math.floor(Math.random() * 100) + 1,
+    //                             inStock: true,
+    //                         })
+    //                     )
+    //                 });
+    //             })
+    //             .catch(error => {
+    //                 console.error(error);
+    //             });
+    //     };
+    //     getBooks();
+    // }, [API_KEY]);
 
 
     useEffect(() => {
