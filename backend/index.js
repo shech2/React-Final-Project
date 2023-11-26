@@ -14,10 +14,7 @@ import fs from 'fs';
 
 dotenv.config();
 
-const server = https.createServer({
-    key: fs.readFileSync('./certs/key.pem'),
-    cert: fs.readFileSync('./certs/cert.pem')
-}, app).listen(5001, () => {
+const server = https.createServer(app).listen(5001, () => {
     console.log("Socket server is running!\n" + "on port: " + 5001 + "\n");
 })
 
@@ -45,10 +42,6 @@ app.use("/api/checkout", stripeRoute);
 app.use("/api/users", usersRoute);
 
 
-https.createServer({
-    key: fs.readFileSync('./certs/key.pem'),
-    cert: fs.readFileSync('./certs/cert.pem')
-
-}, app).listen(process.env.PORT || 3000, () => {
+https.createServer(app).listen(process.env.PORT || 3000, () => {
     console.log("Backend server is running!\n" + "on port: " + process.env.PORT || 5000 + "\n");
 });
