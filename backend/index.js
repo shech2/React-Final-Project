@@ -9,14 +9,14 @@ import stripeRoute from "./routes/stripe.js";
 import usersRoute from "./routes/auth.js";
 import cors from "cors";
 import ws from './WebSocket/ws.js';
-import https from 'https';
+import http from 'http';
 import fs from 'fs';
 
 dotenv.config();
 
-const server = https.createServer(app).listen(5001, () => {
+const server = http.createServer(app).listen(5001, () => {
     console.log("Socket server is running!\n" + "on port: " + 5001 + "\n");
-})
+});
 
 ws.attach(server, {
     cors: {
@@ -42,6 +42,6 @@ app.use("/api/checkout", stripeRoute);
 app.use("/api/users", usersRoute);
 
 
-https.createServer(app).listen(process.env.PORT || 3000, () => {
+http.createServer(app).listen(process.env.PORT || 3000, () => {
     console.log("Backend server is running!\n" + "on port: " + process.env.PORT || 5000 + "\n");
 });

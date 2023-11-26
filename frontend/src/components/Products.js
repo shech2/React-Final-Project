@@ -28,7 +28,7 @@ const Products = ({ cat, filters, sort }) => {
                     console.log(booksUpdated);
                     booksUpdated.map(book => {
                         return (
-                            axios.post('https://ec2-18-184-220-135.eu-central-1.compute.amazonaws.com:5000/api/products/', {
+                            axios.post('https://ec2-3-64-196-53.eu-central-1.compute.amazonaws.com:5000/api/products/', {
                                 title: book.volumeInfo.title,
                                 desc: book.volumeInfo.description,
                                 img: book.volumeInfo.imageLinks.thumbnail,
@@ -54,8 +54,8 @@ const Products = ({ cat, filters, sort }) => {
             try {
                 const res = await axios.get(
                     cat
-                        ? `https://ec2-18-184-220-135.eu-central-1.compute.amazonaws.com:5000/api/products?category=${cat}`
-                        : "https://ec2-18-184-220-135.eu-central-1.compute.amazonaws.com:5000/api/products"
+                        ? `https://ec2-3-64-196-53.eu-central-1.compute.amazonaws.com:5000/api/products?category=${cat}`
+                        : "https://ec2-3-64-196-53.eu-central-1.compute.amazonaws.com:5000/api/products"
                 );
                 setProducts(res.data);
             } catch (err) {

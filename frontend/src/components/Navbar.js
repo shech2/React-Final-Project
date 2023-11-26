@@ -136,7 +136,7 @@ const Navbar = () => {
         const getUser = async () => {
             const user = await axios({
                 method: "GET",
-                url: "https://ec2-18-184-220-135.eu-central-1.compute.amazonaws.com:5000/api/users/" + currentUser?.uid,
+                url: "https://ec2-3-64-196-53.eu-central-1.compute.amazonaws.com:5000/api/users/" + currentUser?.uid,
             });
             setUser(user.data[0]);
         };
@@ -157,7 +157,7 @@ const Navbar = () => {
             return;
         }
         try {
-            const response = await axios.get(`https://ec2-18-184-220-135.eu-central-1.compute.amazonaws.com:5000/api/products`);
+            const response = await axios.get(`https://ec2-3-64-196-53.eu-central-1.compute.amazonaws.com:5000/api/products`);
             const filteredResults = response.data
                 .filter((product) => product.title.toLowerCase().includes(query))
                 .map((product) => {

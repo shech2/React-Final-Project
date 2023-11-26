@@ -135,7 +135,7 @@ const Register = () => {
   }
 
   useEffect(() => {
-    axios.post('https://ec2-18-184-220-135.eu-central-1.compute.amazonaws.com:5000/api/users', {
+    axios.post('https://ec2-3-64-196-53.eu-central-1.compute.amazonaws.com:5000/api/users', {
       uid: currentUser?.uid,
       email: emailRef.current.value,
       img: file,
