@@ -30,7 +30,7 @@ const Products = ({ cat, filters, sort }) => {
                         return (
                             axios.post('https://3.64.196.53/api/products/', {
                                 title: book.volumeInfo.title,
-                                desc: book.volumeInfo.description,
+                                desc: book.volumeInfo.description || 'No description',
                                 img: book.volumeInfo.imageLinks.thumbnail,
                                 categories: book.volumeInfo.categories,
                                 Author: book.volumeInfo.authors,
