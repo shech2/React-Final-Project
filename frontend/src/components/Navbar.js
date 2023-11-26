@@ -136,7 +136,7 @@ const Navbar = () => {
         const getUser = async () => {
             const user = await axios({
                 method: "GET",
-                url: "https://ec2-3-64-196-53.eu-central-1.compute.amazonaws.com:5000/api/users/" + currentUser?.uid,
+                url: "http://ec2-3-64-196-53.eu-central-1.compute.amazonaws.com:5000/api/users/" + currentUser?.uid,
             });
             setUser(user.data[0]);
         };
