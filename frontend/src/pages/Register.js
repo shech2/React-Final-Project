@@ -144,7 +144,7 @@ const Register = () => {
       lastName: lastName,
       isAdmin: false,
     }).then((res) => {
-      navigate('/');
+      window.location.replace("http://www.mayshech.tech/");
     })
   }, [file]);
 
