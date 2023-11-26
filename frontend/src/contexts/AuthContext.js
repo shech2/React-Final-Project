@@ -4,7 +4,7 @@ import { Auth } from '../firebase-config';
 import io from 'socket.io-client';
 import { userRequest } from '../requestMethods.js';
 
-const socket = io('http://ec2-3-64-196-53.eu-central-1.compute.amazonaws.com:5001');
+const socket = io('https://3.64.196.53:5001');
 
 socket.on('connect', () => {
     console.log('Auth Context Client connected');

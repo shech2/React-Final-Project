@@ -9,12 +9,18 @@ import stripeRoute from "./routes/stripe.js";
 import usersRoute from "./routes/auth.js";
 import cors from "cors";
 import ws from './WebSocket/ws.js';
-import http from 'http';
+import https from 'https';
 import fs from 'fs';
 
 dotenv.config();
 
-const server = http.createServer(app).listen(5001, () => {
+const key = fs.readFileSync('./certs/key.key');
+const cert = fs.readFileSync('./certs/cert.crt');
+
+const server = https.createServer({
+    key: key,
+    cert: cert
+}, app).listen(5001, () => {
     console.log("Socket server is running!\n" + "on port: " + 5001 + "\n");
 });
 
@@ -40,8 +46,14 @@ app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/checkout", stripeRoute);
 app.use("/api/users", usersRoute);
+app.get('/.well-known/pki-validation/4579D4587D12234C609490243C82EF7D.txt', (req, res) => {
+    res.send(fs.readFileSync('./4579D4587D12234C609490243C82EF7D.txt', 'utf8'));
+});
 
 
-http.createServer(app).listen(process.env.PORT || 3000, () => {
+https.createServer({
+    key: key,
+    cert: cert
+}, app).listen(process.env.PORT || 3000, () => {
     console.log("Backend server is running!\n" + "on port: " + process.env.PORT || 5000 + "\n");
 });

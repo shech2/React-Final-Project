@@ -76,7 +76,7 @@ const Product = ({ item }) => {
     useEffect(() => {
         const getProduct = async () => {
             try {
-                const res = await axios.get(`http://ec2-3-64-196-53.eu-central-1.compute.amazonaws.com:5000/api/products/find/${item._id}`);
+                const res = await axios.get(`https://3.64.196.53/api/products/find/${item._id}`);
                 setProduct(res.data);
             } catch (err) {
                 console.log(err);
